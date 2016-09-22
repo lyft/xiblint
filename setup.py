@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 import xiblint
 
 setup(
@@ -9,6 +9,6 @@ setup(
     author='Ilya Konstantinov',
     author_email='ikonstantinov@lyft.com',
     install_requires=[],
-    packages=["xiblint"],
+    packages=find_packages(),
     scripts=['bin/xiblint'],
 )
