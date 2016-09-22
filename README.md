@@ -2,19 +2,15 @@
 
 The `xiblint` script will test .xib and .storyboard files for compliance with best practices and team policies.
 
-The error message contain the location within the XML files, and if possible, the Object ID of the relevant object.
-The Object ID can be used in conjunction with Xcode's Find in Workspace feature to jump to the problematic object
-or view in the .xib or .storyboard file.
+The linter messages contain the position within the XML files, and if applicable, an Object ID
+which can be used in conjunction with Xcode's Find in Workspace to jump to the problematic object
+in the .xib or .storyboard file.
 
 ## Rules
 
 - accessibility_format
 
   Checks for incorrect use of Lyft extensions `accessibilityFormat` and `accessibilitySources`.
-
-- automation_identifiers
-
-  Makes sure that interactive views have accessibility identifiers, to support testing through UI Automation.
 
 - accessibility_labels_for_image_buttons
 
@@ -26,26 +22,30 @@ or view in the .xib or .storyboard file.
   Checks for text fields and views with a placeholder and no accessibility label.
   This addresses common confusion about `placeholderText` coming instead of `accessibilityLabel`.
 
+- autolayout_frames
+
+  Checks for ambiguous and misplaced views.
+
+- automation_identifiers
+
+  Makes sure that interactive views have accessibility identifiers, to support testing through UI Automation.
+
 - automation_identifiers_for_outlet_labels
 
   Checks for labels with outlets into a view controller that have no accessibility identifiers.
   Labels with outlets might get dynamic text, and therefore should be accessible to UI testing.
 
-- simulated_metrics_retina4_0
-
-  Ensures simulated metrics are for the iPhone SE, which is currently the smallest display profile.
-
 - no_trait_variations
 
   Ensures Trait Variations are disabled.
 
-- autolayout_frames
+- simulated_metrics_retina4_0
 
-  Checks for ambiguous and misplaced views.
+  Ensures simulated metrics are for the iPhone SE, which is currently the smallest display profile.
 
 ## Usage
 
-To list the rules and their description, run `xiblint -h`.
+For a list of available rules, run `xiblint -h`.
 
 Place a configuration file named `.xiblint.json` into the root of your source repository. A sample configuration file would be:
 
@@ -68,4 +68,4 @@ Place a configuration file named `.xiblint.json` into the root of your source re
 }
 ```
 
-Then simply invoke `xiblint` in that directory.
+Then simply invoke `xiblint` in the source repository.
