@@ -10,6 +10,11 @@ def view_accessibility_label(view):
     return config.get('label') if config is not None else None
 
 
+def view_accessibility_identifier(view):
+    config = view.find("accessibility[@key='accessibilityConfiguration']")
+    return config.get('identifier') if config is not None else None
+
+
 def view_is_accessibility_element(view):
     is_element = view.find("accessibility[@key='accessibilityConfiguration']/bool[@key='isElement']")
     if is_element is None:
