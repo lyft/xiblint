@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from .xmlutils import parse_xml, element_and_parents
+from .xmlutils import parse_xml
 from .xibutils import get_object_id
 
 
