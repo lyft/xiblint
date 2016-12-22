@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
-from xiblint.xmlutils import parse_xml, element_and_parents
+from .xmlutils import parse_xml, element_and_parents
+from .xibutils import get_object_id
 
 
 class XibContext(object):
@@ -8,13 +9,6 @@ class XibContext(object):
         self.success = True
         self.tree = parse_xml(path)
         self.rule_name = None
-
-    @staticmethod
-    def _get_object_id(element):
-        for element in element_and_parents(element):
-            object_id = element.get('id')
-            if object_id is not None:
-                return object_id
 
     @staticmethod
     def _get_moniker(view):
@@ -31,7 +25,7 @@ class XibContext(object):
 
     def error(self, element, message, *args):
         self.success = False
-        object_id = self._get_object_id(element)
+        object_id = get_object_id(element)
         moniker = self._get_moniker(element)
         print("{}:{}: error: {}{}{} [rule: {}]".format(
             self.path,

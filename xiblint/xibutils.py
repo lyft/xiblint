@@ -1,3 +1,11 @@
+from .xmlutils import element_and_parents
+
+
+def get_object_id(element):
+    for element in element_and_parents(element):
+        object_id = element.get('id')
+        if object_id is not None:
+            return object_id
 
 
 def get_view_user_defined_attr(view, key_path):

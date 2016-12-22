@@ -3,7 +3,11 @@ Checks for incorrect use of Lyft extensions `accessibilityFormat` and `accessibi
 """
 import re
 
-from xiblint.xibutils import get_view_user_defined_attr, view_accessibility_identifier
+from xiblint.xibutils import (
+    get_object_id,
+    get_view_user_defined_attr,
+    view_accessibility_identifier,
+)
 
 
 def check(context):  # type: (xiblint.xibcontext.XibContext) -> None
@@ -31,7 +35,7 @@ def check_view(context, view):
         context.tree.find(".//*[@id='{}']".format(destination_id))
         for destination_id in accessibility_source_destination_ids
     ]
-    accessibility_sources_by_id = get_accessibility_sources_by_id(context, view, accessibility_sources)
+    accessibility_sources_by_id = get_accessibility_sources_by_id(accessibility_sources)
     accessibility_sources_count = len(accessibility_sources)
 
     #
@@ -80,27 +84,18 @@ def check_view(context, view):
     # Check old format (with %@)s
     #
     if len(unused_sources) != expected_accessibility_sources_count:
-        context.error(view, "Format string '{}' has {} unused accessibility source(s)",
+        context.error(view, "Format string '{}' has unused accessibility source(s): {}",
                       accessibility_format,
-                      len(unused_sources))
+                      ", ".join([get_object_id(source) for source in unused_sources]))
 
 
-def get_accessibility_sources_by_id(context, view, accessibility_sources):
+def get_accessibility_sources_by_id(accessibility_sources):
     """
     Gets a dictionary of accessibility sources keyed by their 'accessibilityFormatIdentifier'.
     """
     accessibility_sources_by_id = {}
     for source in accessibility_sources:
         accessibility_identifier = view_accessibility_identifier(source)
-        accessibility_format_identifier = get_view_user_defined_attr(source, 'accessibilityFormatIdentifier')
-        if not accessibility_format_identifier:
-            continue
-        accessibility_sources_by_id[accessibility_format_identifier] = source
-        if accessibility_identifier != accessibility_format_identifier:
-            context.error(
-                view,
-                "View accessibility format identifier '{}' doesn't match accessibility identifier '{}'",
-                accessibility_format_identifier,
-                accessibility_identifier,
-            )
+        if accessibility_identifier:
+            accessibility_sources_by_id[accessibility_identifier] = source
     return accessibility_sources_by_id
