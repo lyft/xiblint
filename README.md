@@ -8,38 +8,38 @@ in the .xib or .storyboard file.
 
 ## Rules
 
-- accessibility_format
+- `accessibility_format`
 
   Checks for incorrect use of Lyft extensions `accessibilityFormat` and `accessibilitySources`.
 
-- accessibility_labels_for_image_buttons
+- `accessibility_labels_for_image_buttons`
 
   Checks for image buttons with no accessibility label.
   In this case, VoiceOver will announce the image asset's name, which might be unwanted.
 
-- accessibility_labels_for_text_with_placeholder
+- `accessibility_labels_for_text_with_placeholder`
 
   Checks for text fields and views with a placeholder and no accessibility label.
   This addresses common confusion about `placeholderText` coming instead of `accessibilityLabel`.
 
-- autolayout_frames
+- `autolayout_frames`
 
   Checks for ambiguous and misplaced views.
 
-- automation_identifiers
+- `automation_identifiers`
 
   Makes sure that interactive views have accessibility identifiers, to support testing through UI Automation.
 
-- automation_identifiers_for_outlet_labels
+- `automation_identifiers_for_outlet_labels`
 
   Checks for labels with outlets into a view controller that have no accessibility identifiers.
   Labels with outlets might get dynamic text, and therefore should be accessible to UI testing.
 
-- no_trait_variations
+- `no_trait_variations`
 
   Ensures Trait Variations are disabled.
 
-- simulated_metrics_retina4_0
+- `simulated_metrics_retina4_0`
 
   Ensures simulated metrics are for the iPhone SE, which is currently the smallest display profile.
 
