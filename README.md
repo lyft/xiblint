@@ -12,6 +12,11 @@ in the .xib or .storyboard file.
 
   Checks for incorrect use of Lyft extensions `accessibilityFormat` and `accessibilitySources`.
 
+- `accessibility_labels_for_images`
+
+  Checks for images with accessibility enabled and no accessibility label.
+  In this case, VoiceOver will announce the image asset's name, which might be unwanted.
+
 - `accessibility_labels_for_image_buttons`
 
   Checks for image buttons with no accessibility label.

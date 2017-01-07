@@ -18,6 +18,8 @@ class XibContext(object):
         label = view.get('userLabel')
         if label:
             return label
+        if view.tag == 'imageView':
+            return view.get('image')
         if view.tag == 'button':
             state_normal = view.find("./state[@key='normal']")
             if state_normal is not None:
