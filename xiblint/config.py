@@ -9,7 +9,7 @@ import xiblint.rules
 def validate_rule_patterns(patterns):
     for pattern in (patterns or []):
         if not any(fnmatch(key, pattern) for key in xiblint.rules.rule_checkers):
-            sys.exit("Warning: Rule pattern '{}' matches no rules".format(pattern))
+            print("Warning: Rule pattern '{}' matches no rules".format(pattern))
 
 
 class Config(object):
