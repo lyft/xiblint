@@ -1,5 +1,4 @@
 import json
-import sys
 from os.path import abspath
 from fnmatch import fnmatch
 
