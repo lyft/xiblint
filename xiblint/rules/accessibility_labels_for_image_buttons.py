@@ -13,17 +13,25 @@ def check(context):  # type: (xiblint.xibcontext.XibContext) -> None
     for button in context.tree.findall(".//button"):
         state_normal = button.find("./state[@key='normal']")
         if (
-            state_normal is not None and
-            'image' in state_normal.attrib and
-            'title' not in state_normal.attrib and
-            view_is_accessibility_element(button) is not False and
-            not view_accessibility_label(button) and
-            not get_view_user_defined_attr(button, 'accessibilityFormat')
+            state_normal is None or
+            'title' in state_normal.attrib or
+            view_is_accessibility_element(button) is False or
+            view_accessibility_label(button) or
+            get_view_user_defined_attr(button, 'accessibilityFormat')
         ):
+            continue
+
+        if 'image' in state_normal.attrib:
             context.error(button,
-                          "Button with image '{}' and no title "
-                          "should either have an accessibility label or 'Is Accessibility Element' unchecked",
-                          state_normal.get('image'))
+                          "Button with image '{}' and no title; "
+                          "should either have an accessibility label or 'Accessibility Enabled' unchecked",
+                          state_normal.attrib['image'])
+
+        if 'backgroundImage' in state_normal.attrib:
+            context.error(button,
+                          "Button with background image '{}' and no title "
+                          "should either have an accessibility label or 'Accessibility Enabled' unchecked",
+                          state_normal.attrib['backgroundImage'])
 
     # For barButtonItem, we expect use of a LyftUI extension
     for bar_button_item in context.tree.findall(".//barButtonItem"):
