@@ -75,7 +75,7 @@ def check_old_format(context, view, accessibility_format, accessibility_sources)
     #
     if len(accessibility_sources) != expected_sources_count:
         context.error(view, "Format string '{}' has has {} format specifiers, but view has {} sources.",
-                      expected_sources_count, len(accessibility_sources))
+                      accessibility_format, expected_sources_count, len(accessibility_sources))
 
 
 def check_new_format(context, view, accessibility_format, accessibility_sources, used_identifiers):
