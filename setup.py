@@ -10,5 +10,5 @@ setup(
     author_email='ikonstantinov@lyft.com',
     install_requires=[],
     packages=find_packages(),
-    scripts=['bin/xiblint'],
+    entry_points={'console_scripts': ['xiblint=xiblint.__main__:main']},
 )
