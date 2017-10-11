@@ -1,3 +1,4 @@
+defusedxml==0.5.0
 flake8==3.0.4
 mccabe==0.5.2
 pep8==1.7.0

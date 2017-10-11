@@ -6,6 +6,7 @@ import sys
 
 from xiblint.config import Config
 from xiblint.xibcontext import XibContext
+from xiblint.xmlutils import ElementTree
 import xiblint.rules
 
 
