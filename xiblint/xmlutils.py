@@ -29,7 +29,7 @@ def parse_xml(file_path):
     builder = _TreeBuilder()
     parser = DefusedXMLParser(target=builder, forbid_dtd=False, forbid_entities=True, forbid_external=True)
     builder.parser = weakref.proxy(parser)
-    tree = ElementTree.parse(file_path, parser=builder.parser)
+    tree = ElementTree.parse(file_path, parser=parser)
 
     # ElementTree does not implement parent attributes: add parent property to every element
     parent_map = {child: parent
