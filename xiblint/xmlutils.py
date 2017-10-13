@@ -1,16 +1,22 @@
+import weakref
+
+# HACK to ensure cElementTree is not loaded -- we need the pure Python implementation
 import sys
 
-# HACK to ensure cElementTree is not loaded -- we need the Pythonic implementation
 assert 'xml.etree.ElementTree' not in sys.modules
 sys.modules['_elementtree'] = {}
-from xml.etree import ElementTree  # noqa
+
+from xml.etree import ElementTree  # noqa E402
+from defusedxml.ElementTree import DefusedXMLParser  # noqa E402
 
 
 class _TreeBuilder(ElementTree.TreeBuilder):
     """
     Adds a line and column number to every element.
     """
-    parser = None
+    def __init__(self):
+        super(_TreeBuilder, self).__init__()
+        self.parser = None
 
     def start(self, tag, attrs):
         elem = super(_TreeBuilder, self).start(tag, attrs)
@@ -21,8 +27,8 @@ class _TreeBuilder(ElementTree.TreeBuilder):
 
 def parse_xml(file_path):
     builder = _TreeBuilder()
-    parser = ElementTree.XMLParser(target=builder)
-    builder.parser = parser
+    parser = DefusedXMLParser(target=builder, forbid_dtd=False, forbid_entities=True, forbid_external=True)
+    builder.parser = weakref.proxy(parser)
     tree = ElementTree.parse(file_path, parser=parser)
 
     # ElementTree does not implement parent attributes: add parent property to every element
