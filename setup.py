@@ -5,6 +5,7 @@ setup(
     name='xiblint',
     version=xiblint.__version__,
     description='Checks .xib and .storyboard files for compliance with best practices',
+    license='apache2',
     url='https://github.com/lyft/xiblint',
     author='Ilya Konstantinov',
     author_email='ikonstantinov@lyft.com',

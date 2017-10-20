@@ -6,7 +6,6 @@ import sys
 
 from xiblint.config import Config
 from xiblint.xibcontext import XibContext
-from xiblint.xmlutils import ElementTree
 import xiblint.rules
 
 
@@ -36,7 +35,6 @@ def main():
 
     try:
         config = Config()
-        import json.decoder
     except IOError as ex:
         print('Error: {}\n'.format(ex))
         parser.print_usage()
