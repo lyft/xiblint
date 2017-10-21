@@ -1,0 +1,18 @@
+sudo: false
+language: python
+python:
+- '2.7'
+- '3.6'
+install:
+- pip install -r requirements.txt
+- pip install -e .
+script: make test
+deploy:
+  provider: pypi
+  user: lyft-xiblint
+  password:
+    secure: "p3fZwpMUgWNxVnCskh2CeUD8lB0DKkvtwn6+RSilbIxaxxjhvMdbekOHndS0F+aBtQKzQBrfn5UlvUblq0T0AffbUluaoo9RDY5n18bG6tgPoXzss8IrXfKuSejV9Op7ZPB+opsA+IgIdTWdZUCmNUHm7kLUkxqieV0owBH8wtLQFFLMeEwkqpAAPQZz0Jrc/xQ+1nhor43eUGqTbwFr+8bmXiUKKOLZDnjU5mzwlqAQWZjWhEL/PX1SpPBlkL44wozstphHnUAbga3r+59c9mwIFeKacxc77kxHDa8trGpESM06MWXXDjnXGEdNzPHhlJkaT66uIA9Hl+OC102KV7tIwmY9MHKa0mdm4pgz8VsjACb+f2qa4B0j0mISQaiGpAw+uvJ59YV4GbwpiJeEkE2mEqhg5g1NLz8JUfrzfiChV5A7w2S8t/lJs23A+WzqQO5CilAieL/A2yOZPUAq/HmeaXNlbjY5C9HavxA1tIuNqfuoIb5jyd5HELQEN3XadUzCKwfeJGsOBAL918P9sxnM2o4MziUA1VF02VbMET5h4TmhP3LDCMVjll/ub93f6k28aPdxqqOZDr/v8qdGwJRQI/rgNUGBIui8z9NJ70fDyd9cUZsFbIFWmjTlSc1Uq8UEyTvR65r4hhCOf/EBr3FXtuAs7wqDL5UY+O/P+Gc="
+  on:
+    tags: true
+    distributions: sdist
+    repo: lyft/xiblint

@@ -1,6 +1,5 @@
 defusedxml==0.5.0
 flake8==3.0.4
 mccabe==0.5.2
-pep8==1.7.0
 pycodestyle==2.0.0
 pyflakes==1.2.3
