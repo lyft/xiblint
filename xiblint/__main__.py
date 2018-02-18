@@ -31,7 +31,11 @@ def main():
     )
     parser.add_argument("-v", "--version", action="version",
                         version=__version__)
-    parser.parse_args()
+    parser.add_argument("--reporter", choices=("raw", "json"), 
+                        default="raw",
+                        help="custom reporter to use (optional)")
+    args = parser.parse_args()
+    reporter = args.reporter
 
     try:
         config = Config()
