@@ -32,7 +32,7 @@ def main():
     )
     parser.add_argument("-v", "--version", action="version",
                         version=__version__)
-    parser.add_argument("--reporter", choices=("raw", "json"), 
+    parser.add_argument("--reporter", choices=("raw", "json"),
                         default="raw",
                         help="custom reporter to use (optional)")
     args = parser.parse_args()
@@ -61,7 +61,8 @@ def main():
     print_errors(errors, reporter)
 
     sys.exit(0 if errors.count == 0 else 1)
-    
+
+
 def process_file(file_path, checkers, reporter):
     _, ext = os.path.splitext(file_path)
     if ext.lower() not in [u".storyboard", u".xib"]:
@@ -72,16 +73,18 @@ def process_file(file_path, checkers, reporter):
         checker(context)
     return context.errors
 
+
 def print_errors(errors, reporter):
     if reporter == "raw":
         for error_dict in errors:
-            print("{}:{}: error: {} [rule: {}]".format(error_dict["file"],
+            print("{}:{}: error: {} [rule: {}]".format(
+                error_dict["file"],
                 error_dict["line"],
                 error_dict["error"],
                 error_dict["rule"]
             ))
     elif reporter == "json":
-        print json.dumps(errors)
+        print(json.dumps(errors))
 
 
 if __name__ == '__main__':
