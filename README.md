@@ -74,3 +74,16 @@ Place a configuration file named `.xiblint.json` into the root of your source re
 ```
 
 Then simply invoke `xiblint` in the source repository.
+
+## Instalation
+
+### Using `pip`:
+```
+pip install git+https://github.com/lyft/xiblint.git
+```
+
+### Manual:
+```
+git clone https://github.com/lyft/xiblint.git
+cd xiblint && sudo python setup.py install
+```
