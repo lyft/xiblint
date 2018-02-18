@@ -77,12 +77,12 @@ Then simply invoke `xiblint` in the source repository.
 
 ## Instalation
 
-### Using `pip`:
+Using `pip`:
 ```
 pip install git+https://github.com/lyft/xiblint.git
 ```
 
-### Manual:
+Manual:
 ```
 git clone https://github.com/lyft/xiblint.git
 cd xiblint && sudo python setup.py install
