@@ -9,6 +9,7 @@ class XibContext(object):
         self.success = True
         self.tree = parse_xml(path)
         self.rule_name = None
+        self.errors = []
 
     @staticmethod
     def _get_moniker(view):
@@ -29,11 +30,15 @@ class XibContext(object):
         self.success = False
         object_id = get_object_id(element)
         moniker = self._get_moniker(element)
-        print("{}:{}: error: {}{}{} [rule: {}]".format(
-            self.path,
-            element.line,
+
+        new_error = "{}{}{}".format(
             "{}: ".format(object_id) if object_id else '',
             "'{}': ".format(moniker) if moniker else '',
-            message.format(*args),
-            self.rule_name,
-        ))
+            message.format(*args)
+        )
+        new_error_dict = {"file": self.path, 
+            "line": element.line, 
+            "error": new_error, 
+            "rule": self.rule_name}
+
+        self.errors.append(new_error_dict)
