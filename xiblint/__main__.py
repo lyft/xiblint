@@ -48,10 +48,11 @@ def main():
     # Process paths
     #
     success = True
-    for root, _, files in os.walk(u'.'):
-        for file_path in [os.path.join(root, file) for file in files]:
-            checkers = config.checkers(file_path)
-            success = process_file(file_path, checkers) and success
+    for path in config.include_paths:
+        for root, _, files in os.walk(path):
+            for file_path in [os.path.join(root, file) for file in files]:
+                checkers = config.checkers(file_path)
+                success = process_file(file_path, checkers) and success
 
     sys.exit(0 if success else 1)
 

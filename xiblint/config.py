@@ -19,6 +19,7 @@ class Config(object):
             data = json.load(file)
         self.rules = data.get('rules', [])
         validate_rule_patterns(self.rules)
+        self.include_paths = data.get('include_paths', [u'.'])
         self.paths = {abspath(path): PathConfig(self, config)
                       for (path, config) in data.get('paths', {}).items()}
         self.base_config = PathConfig(self, {})
