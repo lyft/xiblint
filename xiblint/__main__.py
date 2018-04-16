@@ -60,7 +60,7 @@ def main():
 
     print_errors(errors, args.reporter)
 
-    sys.exit(len(errors) == 0)
+    sys.exit(1 if errors else 0)
 
 
 def process_file(file_path, checkers, reporter):
