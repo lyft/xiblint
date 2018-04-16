@@ -87,3 +87,21 @@ Manual:
 git clone https://github.com/lyft/xiblint.git
 cd xiblint && python setup.py install
 ```
+
+## Contributing
+
+### Code of conduct
+
+This project is governed by [Lyft's code of conduct](https://github.com/lyft/code-of-conduct). All contributors and participants agree to abide by its terms.
+
+### Sign the Contributor License Agreement (CLA)
+
+We require a CLA for code contributions, so before we can accept a pull request we need to have a signed CLA. Please [visit our CLA service](https://oss.lyft.com/cla) and follow the instructions to sign the CLA.
+
+### File issues in GitHub
+
+Use GitHub issue to file bugs or enhancement requests. You may also use GitHub issues to discuss before implementing a change.
+
+### Submit pull requests
+
+Our only method of accepting code changes is through GitHub pull requests.
