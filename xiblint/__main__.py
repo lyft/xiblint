@@ -53,10 +53,11 @@ def main():
     # Process paths
     #
     errors = []
-    for root, _, files in os.walk(u'.'):
-        for file_path in [os.path.join(root, file) for file in files]:
-            checkers = config.checkers(file_path)
-            errors = errors + process_file(file_path, checkers, reporter)
+    for path in config.include_paths:
+        for root, _, files in os.walk(path):
+            for file_path in [os.path.join(root, file) for file in files]:
+                checkers = config.checkers(file_path)
+                errors = errors + process_file(file_path, checkers, reporter)
 
     print_errors(errors, reporter)
 
