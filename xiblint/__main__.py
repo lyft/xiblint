@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from xiblint import __version__
 import argparse
+import json
 import os
 import sys
 
@@ -31,7 +32,10 @@ def main():
     )
     parser.add_argument("-v", "--version", action="version",
                         version=__version__)
-    parser.parse_args()
+    parser.add_argument("--reporter", choices=("raw", "json"),
+                        default="raw",
+                        help="custom reporter to use")
+    args = parser.parse_args()
 
     try:
         config = Config()
@@ -47,25 +51,40 @@ def main():
     #
     # Process paths
     #
-    success = True
+    errors = []
     for path in config.include_paths:
         for root, _, files in os.walk(path):
             for file_path in [os.path.join(root, file) for file in files]:
                 checkers = config.checkers(file_path)
-                success = process_file(file_path, checkers) and success
+                errors += process_file(file_path, checkers, args.reporter)
 
-    sys.exit(0 if success else 1)
+    print_errors(errors, args.reporter)
+
+    sys.exit(1 if errors else 0)
 
 
-def process_file(file_path, checkers):
+def process_file(file_path, checkers, reporter):
     _, ext = os.path.splitext(file_path)
     if ext.lower() not in [u".storyboard", u".xib"]:
-        return True
+        return []
     context = XibContext(file_path)
     for rule_name, checker in checkers.items():
         context.rule_name = rule_name
         checker(context)
-    return context.success
+    return context.errors
+
+
+def print_errors(errors, reporter):
+    if reporter == "raw":
+        for error_dict in errors:
+            print("{}:{}: error: {} [rule: {}]".format(
+                error_dict["file"],
+                error_dict["line"],
+                error_dict["error"],
+                error_dict["rule"],
+            ))
+    elif reporter == "json":
+        print(json.dumps(errors))
 
 
 if __name__ == '__main__':
