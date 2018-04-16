@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 from xiblint import __version__
 import argparse
+import json
 import os
 import sys
-import json
 
 from xiblint.config import Config
 from xiblint.xibcontext import XibContext
@@ -34,9 +34,8 @@ def main():
                         version=__version__)
     parser.add_argument("--reporter", choices=("raw", "json"),
                         default="raw",
-                        help="custom reporter to use (optional)")
+                        help="custom reporter to use")
     args = parser.parse_args()
-    reporter = args.reporter
 
     try:
         config = Config()
@@ -57,11 +56,11 @@ def main():
         for root, _, files in os.walk(path):
             for file_path in [os.path.join(root, file) for file in files]:
                 checkers = config.checkers(file_path)
-                errors = errors + process_file(file_path, checkers, reporter)
+                errors += process_file(file_path, checkers, args.reporter)
 
-    print_errors(errors, reporter)
+    print_errors(errors, args.reporter)
 
-    sys.exit(0 if errors.count == 0 else 1)
+    sys.exit(len(errors) == 0)
 
 
 def process_file(file_path, checkers, reporter):
@@ -82,7 +81,7 @@ def print_errors(errors, reporter):
                 error_dict["file"],
                 error_dict["line"],
                 error_dict["error"],
-                error_dict["rule"]
+                error_dict["rule"],
             ))
     elif reporter == "json":
         print(json.dumps(errors))

@@ -34,13 +34,13 @@ class XibContext(object):
         new_error = "{}{}{}".format(
             "{}: ".format(object_id) if object_id else '',
             "'{}': ".format(moniker) if moniker else '',
-            message.format(*args)
+            message.format(*args),
         )
         new_error_dict = {
             "file": self.path,
             "line": element.line,
             "error": new_error,
-            "rule": self.rule_name
+            "rule": self.rule_name,
         }
 
         self.errors.append(new_error_dict)
