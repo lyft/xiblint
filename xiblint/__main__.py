@@ -35,8 +35,8 @@ def main():
     parser.add_argument("--reporter", choices=("raw", "json"),
                         default="raw",
                         help="custom reporter to use")
-    parser.add_argument("--path",
-                        help="lint only the specified file at path")
+    parser.add_argument("paths", nargs=argparse.REMAINDER,
+                        help="lint only at the specified paths")
     args = parser.parse_args()
 
     try:
@@ -54,11 +54,12 @@ def main():
     # Process paths
     #
     errors = []
-    if args.path:
-        checkers = config.checkers(args.path)
-        errors += process_file(args.path, checkers, args.reporter)
-    else:
-        for path in config.include_paths:
+    include_paths = args.paths or config.include_paths
+    for path in include_paths:
+        if os.path.isfile(path):
+            checkers = config.checkers(path)
+            errors += process_file(path, checkers, args.reporter)
+        else:
             for root, _, files in os.walk(path):
                 for file_path in [os.path.join(root, file) for file in files]:
                     checkers = config.checkers(file_path)
