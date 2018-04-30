@@ -75,13 +75,6 @@ Place a configuration file named `.xiblint.json` into the root of your source re
 
 Then simply invoke `xiblint` in the source repository.
 
-### --path
-
-Sometimes you want to lint only one file and forget about the rest - for instance, when you want to lint only delta changes. This is when the `--path` arguments comes handy:
-```
-xiblint --path "Project/Base.lproj/LaunchScreen.storyboard"
-```
-
 ### --reporter
 
 If you find yourself in need of a different structure of the output, there is the `--reporter` option.
@@ -89,6 +82,18 @@ You are able to choose from the default one, `raw`, or a `json` one. To switch b
 ```
 xiblint --reporter json
 xiblint --reporter raw
+```
+
+### Specyfing paths
+
+Sometimes you want to lint only a few files and forget about the rest - for instance, when you want to lint only delta changes. For this case you can specify your files after the `xiblint` command:
+```
+xiblint "Project/Base.lproj/LaunchScreen.storyboard" "Project/Base.lproj/Main.storyboard"
+```
+
+If you want to combine paths with the reporter option, don't forget to _put the option before listing the paths_:
+```
+xiblint --reporter json "Project/Base.lproj/LaunchScreen.storyboard" "Project/Base.lproj/Main.storyboard"
 ```
 
 ## Instalation
