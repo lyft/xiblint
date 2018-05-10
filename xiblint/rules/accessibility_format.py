@@ -10,7 +10,7 @@ from xiblint.xibutils import (
 )
 
 
-def check(context):  # type: (xiblint.xibcontext.XibContext) -> None
+def check(_, context):  # type: (Dict[str, Any], xiblint.xibcontext.XibContext) -> None
     views_with_accessibility_format = {
         element.parent.parent
         for element in context.tree.findall(

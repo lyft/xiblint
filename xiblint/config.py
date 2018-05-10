@@ -18,11 +18,12 @@ class Config(object):
         with open(self.filename, 'r') as file:
             data = json.load(file)
         self.rules = data.get('rules', [])
+        self.rules_config = data.get('rules_config', {})
         validate_rule_patterns(self.rules)
         self.include_paths = data.get('include_paths', [u'.'])
-        self.paths = {abspath(path): PathConfig(self.rules, config)
+        self.paths = {abspath(path): PathConfig(self.rules, self.rules_config, config)
                       for (path, config) in data.get('paths', {}).items()}
-        self.base_config = PathConfig(self.rules, {})
+        self.base_config = PathConfig(self.rules, self.rules_config, {})
 
     def _config_for_file_path(self, file_path):
         file_path = abspath(file_path)
@@ -38,7 +39,7 @@ class Config(object):
 
 
 class PathConfig(object):
-    def __init__(self, default_rules, data):
+    def __init__(self, default_rules, rules_config, data):
         self.path_rules = data.get('rules')
         validate_rule_patterns(self.path_rules)
         self.excluded_rules = data.get('excluded_rules', [])
@@ -46,9 +47,11 @@ class PathConfig(object):
 
         # Filter checkers
         patterns = self.path_rules if self.path_rules is not None else default_rules
+        rules_config = data.get('rules_config') or rules_config
         excluded_patterns = self.excluded_rules
         self.checkers = {
-            rule: checker for (rule, checker) in xiblint.rules.rule_checkers.items()
+            rule: (checker, rules_config.get(rule))
+            for (rule, checker) in xiblint.rules.rule_checkers.items()
             if any(fnmatch(rule, pattern) for pattern in patterns) and
             not any(fnmatch(rule, pattern) for pattern in excluded_patterns)
         }

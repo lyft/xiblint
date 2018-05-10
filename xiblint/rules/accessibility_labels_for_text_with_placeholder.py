@@ -9,7 +9,7 @@ from xiblint.xibutils import (
 )
 
 
-def check(context):  # type: (xiblint.xibcontext.XibContext) -> None
+def check(_, context):  # type: (Dict[str, Any], xiblint.xibcontext.XibContext) -> None
     for element in context.tree.findall(".//textField") + context.tree.findall(".//textView"):
         placeholder = (element.get('placeholder') if element.tag == 'textField'
                        else get_view_user_defined_attr(element, 'placeholder'))
