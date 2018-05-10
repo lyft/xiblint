@@ -20,9 +20,9 @@ class Config(object):
         self.rules = data.get('rules', [])
         validate_rule_patterns(self.rules)
         self.include_paths = data.get('include_paths', [u'.'])
-        self.paths = {abspath(path): PathConfig(self, config)
+        self.paths = {abspath(path): PathConfig(self.rules, config)
                       for (path, config) in data.get('paths', {}).items()}
-        self.base_config = PathConfig(self, {})
+        self.base_config = PathConfig(self.rules, {})
 
     def _config_for_file_path(self, file_path):
         file_path = abspath(file_path)
@@ -38,15 +38,14 @@ class Config(object):
 
 
 class PathConfig(object):
-    def __init__(self, config, data):
-        self.config = config
+    def __init__(self, default_rules, data):
         self.path_rules = data.get('rules')
         validate_rule_patterns(self.path_rules)
         self.excluded_rules = data.get('excluded_rules', [])
         validate_rule_patterns(self.excluded_rules)
 
         # Filter checkers
-        patterns = self.path_rules if self.path_rules is not None else self.config.rules
+        patterns = self.path_rules if self.path_rules is not None else default_rules
         excluded_patterns = self.excluded_rules
         self.checkers = {
             rule: checker for (rule, checker) in xiblint.rules.rule_checkers.items()
