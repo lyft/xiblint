@@ -32,14 +32,3 @@ def check(context):  # type: (xiblint.xibcontext.XibContext) -> None
                           "Button with background image '{}' and no title "
                           "should either have an accessibility label or 'Accessibility Enabled' unchecked",
                           state_normal.attrib['backgroundImage'])
-
-    # For barButtonItem, we expect use of a LyftUI extension
-    for bar_button_item in context.tree.findall(".//barButtonItem"):
-        if (
-            'image' in bar_button_item.attrib and
-            'title' not in bar_button_item.attrib and
-            get_view_user_defined_attr(bar_button_item, 'voiceoverLabel') is None
-        ):
-            context.error(bar_button_item,
-                          "Bar button item with image {} and no title "
-                          "should have a user-defined `voiceoverLabel` attribute", bar_button_item.get('image'))
