@@ -48,6 +48,10 @@ in the .xib or .storyboard file.
 
   Ensures simulated metrics are for the iPhone SE, which is currently the smallest display profile.
 
+- `no_view_controller_links_to_other_bundles`
+
+  Ensures there are no links to other storyboards in different bundles.
+
 ## Usage
 
 For a list of available rules, run `xiblint -h`.
@@ -96,7 +100,7 @@ If you want to combine paths with the reporter option, don't forget to _put the 
 xiblint --reporter json "Project/Base.lproj/LaunchScreen.storyboard" "Project/Base.lproj/Main.storyboard"
 ```
 
-## Instalation
+## Installation
 
 Using `pip`:
 ```
