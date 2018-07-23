@@ -15,8 +15,8 @@ class Config(object):
     filename = '.xiblint.json'
 
     def __init__(self):
-        with open(self.filename, 'r') as file:
-            data = json.load(file)
+        with open(self.filename, 'r') as f:
+            data = json.load(f)
         self.rules = data.get('rules', [])
         validate_rule_patterns(self.rules)
         self.include_paths = data.get('include_paths', [u'.'])
