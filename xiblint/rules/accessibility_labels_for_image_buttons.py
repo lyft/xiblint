@@ -9,7 +9,7 @@ from xiblint.xibutils import (
 )
 
 
-def check(context):  # type: (xiblint.xibcontext.XibContext) -> None
+def check(_, context):  # type: (Dict[str, Any], xiblint.xibcontext.XibContext) -> None
     for button in context.tree.findall(".//button"):
         state_normal = button.find("./state[@key='normal']")
         if (

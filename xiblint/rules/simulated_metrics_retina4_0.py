@@ -8,7 +8,7 @@ ALLOWED_DEVICES = [
 ]
 
 
-def check(context):  # type: (xiblint.xibcontext.XibContext) -> None
+def check(_, context):  # type: (Dict[str, Any], xiblint.xibcontext.XibContext) -> None
     root = context.tree.getroot()
 
     # In Xcode 9 this metadata is in a new place

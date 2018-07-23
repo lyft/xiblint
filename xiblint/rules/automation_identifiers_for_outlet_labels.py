@@ -4,7 +4,7 @@ Labels with outlets might get dynamic text, and therefore should be accessible t
 """
 
 
-def check(context):  # type: (xiblint.xibcontext.XibContext) -> None
+def check(_, context):  # type: (Dict[str, Any], xiblint.xibcontext.XibContext) -> None
     for outlet in context.tree.findall(".//viewController/connections/outlet"):
         destination = outlet.get('destination')
         label = context.tree.find(".//label[@id='{}']".format(destination))

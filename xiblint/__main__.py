@@ -77,9 +77,9 @@ def main():
 
 def process_file(file_path, checkers):
     context = XibContext(file_path)
-    for rule_name, checker in checkers.items():
+    for rule_name, (checker, config) in checkers.items():
         context.rule_name = rule_name
-        checker(context)
+        checker(config, context)
     return context.errors
 
 

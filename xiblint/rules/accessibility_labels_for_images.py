@@ -9,7 +9,7 @@ from xiblint.xibutils import (
 )
 
 
-def check(context):  # type: (xiblint.xibcontext.XibContext) -> None
+def check(_, context):  # type: (Dict[str, Any], xiblint.xibcontext.XibContext) -> None
     for image_view in context.tree.findall(".//imageView"):
         if (
             view_is_accessibility_element(image_view) is True and
