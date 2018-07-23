@@ -46,7 +46,7 @@ def main():
         parser.print_usage()
         sys.exit(1)
     except ValueError as ex:
-        print('Error: {}: {}\n'.format(ex, Config.filename, ex))
+        print('Error: {}: {}\n'.format(Config.filename, ex))
         parser.print_usage()
         sys.exit(1)
 
