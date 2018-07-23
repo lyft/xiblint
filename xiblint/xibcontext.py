@@ -26,6 +26,8 @@ class XibContext(object):
             if state_normal is not None:
                 return state_normal.get('title') or state_normal.get('image')
 
+        return None
+
     def error(self, element, message, *args):
         self.success = False
         object_id = get_object_id(element)

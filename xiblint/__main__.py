@@ -1,10 +1,11 @@
 #!/usr/bin/env python
-from xiblint import __version__
+
 import argparse
 import json
 import os
 import sys
 
+from xiblint import __version__
 from xiblint.config import Config
 from xiblint.xibcontext import XibContext
 import xiblint.rules

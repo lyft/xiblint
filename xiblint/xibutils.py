@@ -2,10 +2,12 @@ from .xmlutils import element_and_parents
 
 
 def get_object_id(element):
-    for element in element_and_parents(element):
-        object_id = element.get('id')
+    for child in element_and_parents(element):
+        object_id = child.get('id')
         if object_id is not None:
             return object_id
+
+    return None
 
 
 def get_view_user_defined_attr(view, key_path):
@@ -26,5 +28,5 @@ def view_accessibility_identifier(view):
 def view_is_accessibility_element(view):
     is_element = view.find("accessibility[@key='accessibilityConfiguration']/bool[@key='isElement']")
     if is_element is None:
-        return
+        return False
     return is_element.get('value') == 'YES'

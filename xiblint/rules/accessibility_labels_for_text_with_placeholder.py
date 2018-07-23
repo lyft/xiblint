@@ -14,9 +14,9 @@ def check(context):  # type: (xiblint.xibcontext.XibContext) -> None
         placeholder = (element.get('placeholder') if element.tag == 'textField'
                        else get_view_user_defined_attr(element, 'placeholder'))
         if (
-            placeholder is not None and
-            element.find('./accessibility[@label]') is None and
-            view_is_accessibility_element(element) is not False
+                placeholder is not None and
+                element.find('./accessibility[@label]') is None and
+                view_is_accessibility_element(element) is not False
         ):
             context.error(element,
                           "{} with placeholder text '{}' but no accessibility label",
