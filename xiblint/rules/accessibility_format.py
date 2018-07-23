@@ -10,19 +10,24 @@ from xiblint.xibutils import (
 )
 
 
-def check(context):  # type: (xiblint.xibcontext.XibContext) -> None
-    views_with_accessibility_format = {
-        element.parent.parent
-        for element in context.tree.findall(
-            ".//userDefinedRuntimeAttributes/userDefinedRuntimeAttribute[@keyPath='accessibilityFormat']")
-    }
-    views_with_accessibility_sources = {
-        element.parent.parent
-        for element in context.tree.findall(".//connections/outletCollection[@property='accessibilitySources']")
-    }
+class AccessibilityFormat(object):
+    def __init__(self, _):
+        pass
 
-    for view in views_with_accessibility_format | views_with_accessibility_sources:
-        check_view(context, view)
+    @staticmethod
+    def check(context):  # type: (xiblint.xibcontext.XibContext) -> None
+        views_with_accessibility_format = {
+            element.parent.parent
+            for element in context.tree.findall(
+                ".//userDefinedRuntimeAttributes/userDefinedRuntimeAttribute[@keyPath='accessibilityFormat']")
+        }
+        views_with_accessibility_sources = {
+            element.parent.parent
+            for element in context.tree.findall(".//connections/outletCollection[@property='accessibilitySources']")
+        }
+
+        for view in views_with_accessibility_format | views_with_accessibility_sources:
+            check_view(context, view)
 
 
 def check_view(context, view):
