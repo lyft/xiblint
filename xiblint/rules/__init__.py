@@ -10,7 +10,7 @@ class Rule(object):
 
     @staticmethod
     def check(_):
-        raise Exception("Implement this in your subclass")
+        raise NotImplementedError()
 
 
 def _class_name_for_file(filename):
