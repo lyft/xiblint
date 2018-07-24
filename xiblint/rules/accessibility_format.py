@@ -3,6 +3,7 @@ Checks for incorrect use of Lyft extensions `accessibilityFormat` and `accessibi
 """
 import re
 
+from xiblint.rules import Rule
 from xiblint.xibutils import (
     get_object_id,
     get_view_user_defined_attr,
@@ -10,10 +11,7 @@ from xiblint.xibutils import (
 )
 
 
-class AccessibilityFormat(object):
-    def __init__(self, _):
-        pass
-
+class AccessibilityFormat(Rule):
     @staticmethod
     def check(context):  # type: (xiblint.xibcontext.XibContext) -> None
         views_with_accessibility_format = {

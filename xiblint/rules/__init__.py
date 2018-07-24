@@ -4,6 +4,11 @@ from os.path import basename, dirname
 from importlib import import_module
 
 
+class Rule(object):
+    def __init__(self, config):
+        pass
+
+
 def _class_name_for_file(filename):
     components = filename.split("_")
     return "".join(x.title() for x in components)
