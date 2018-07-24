@@ -6,7 +6,11 @@ from importlib import import_module
 
 class Rule(object):
     def __init__(self, config):
-        pass
+        self.config = config
+
+    @staticmethod
+    def check(_):
+        raise Exception("Implement this in your subclass")
 
 
 def _class_name_for_file(filename):
