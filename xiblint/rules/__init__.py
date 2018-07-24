@@ -19,10 +19,10 @@ def _class_name_for_file(filename):
 def _collect_checkers():
     _rule_checkers = {}
     for filepath in glob(dirname(__file__) + "/*.py"):
-        if filepath == __file__:
+        rule_name = basename(filepath)[:-3]
+        if rule_name == "__init__":
             continue
 
-        rule_name = basename(filepath)[:-3]
         module = import_module('xiblint.rules.' + rule_name)
         class_name = _class_name_for_file(rule_name)
         klass = getattr(module, class_name)
