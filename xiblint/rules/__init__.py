@@ -8,8 +8,7 @@ class Rule(object):
     def __init__(self, config):
         self.config = config
 
-    @staticmethod
-    def check(_):
+    def check(self, context):
         raise NotImplementedError()
 
 
