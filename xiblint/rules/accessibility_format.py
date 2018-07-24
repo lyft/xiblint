@@ -12,8 +12,7 @@ from xiblint.xibutils import (
 
 
 class AccessibilityFormat(Rule):
-    @staticmethod
-    def check(context):  # type: (xiblint.xibcontext.XibContext) -> None
+    def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
         views_with_accessibility_format = {
             element.parent.parent
             for element in context.tree.findall(

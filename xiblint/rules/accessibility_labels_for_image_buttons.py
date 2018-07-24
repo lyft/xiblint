@@ -2,6 +2,8 @@
 Checks for image buttons with no accessibility label.
 In this case, VoiceOver will announce the image asset's name, which might be unwanted.
 """
+
+from xiblint.rules import Rule
 from xiblint.xibutils import (
     view_is_accessibility_element,
     view_accessibility_label,
@@ -9,26 +11,29 @@ from xiblint.xibutils import (
 )
 
 
-def check(context):  # type: (xiblint.xibcontext.XibContext) -> None
-    for button in context.tree.findall(".//button"):
-        state_normal = button.find("./state[@key='normal']")
-        if (
-                state_normal is None or
-                'title' in state_normal.attrib or
-                view_is_accessibility_element(button) is False or
-                view_accessibility_label(button) or
-                get_view_user_defined_attr(button, 'accessibilityFormat')
-        ):
-            continue
+class AccessibilityLabelsForImageButtons(Rule):
+    def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
+        for button in context.tree.findall(".//button"):
+            state_normal = button.find("./state[@key='normal']")
+            if (
+                    state_normal is None or
+                    'title' in state_normal.attrib or
+                    view_is_accessibility_element(button) is False or
+                    view_accessibility_label(button) or
+                    get_view_user_defined_attr(button, 'accessibilityFormat')
+            ):
+                continue
 
-        if 'image' in state_normal.attrib:
-            context.error(button,
-                          "Button with image '{}' and no title; "
-                          "should either have an accessibility label or 'Accessibility Enabled' unchecked",
-                          state_normal.attrib['image'])
+            if 'image' in state_normal.attrib:
+                context.error(
+                    button,
+                    "Button with image '{}' and no title; "
+                    "should either have an accessibility label or 'Accessibility Enabled' unchecked",
+                    state_normal.attrib['image'])
 
-        if 'backgroundImage' in state_normal.attrib:
-            context.error(button,
-                          "Button with background image '{}' and no title "
-                          "should either have an accessibility label or 'Accessibility Enabled' unchecked",
-                          state_normal.attrib['backgroundImage'])
+            if 'backgroundImage' in state_normal.attrib:
+                context.error(
+                    button,
+                    "Button with background image '{}' and no title "
+                    "should either have an accessibility label or 'Accessibility Enabled' unchecked",
+                    state_normal.attrib['backgroundImage'])
