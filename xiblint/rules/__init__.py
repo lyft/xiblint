@@ -13,8 +13,7 @@ class Rule(object):
 
 
 def _class_name_for_file(filename):
-    components = filename.split("_")
-    return "".join(x.title() for x in components)
+    return filename.title().replace("_", "")
 
 
 def _collect_checkers():
