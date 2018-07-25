@@ -29,7 +29,7 @@ def _collect_checkers():
         if inspect.isclass(klass):
             _rule_checkers[rule_name] = klass
         else:
-            raise Exception("Found incorrect type in {}".format(filepath))
+            raise TypeError("Expected function in {}".format(filepath))
     return _rule_checkers
 
 rule_checkers = _collect_checkers()
