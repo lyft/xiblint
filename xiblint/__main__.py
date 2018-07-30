@@ -58,15 +58,13 @@ def main():
     include_paths = args.paths or config.include_paths
     for path in include_paths:
         if os.path.isfile(path):
-            checkers = config.checkers(path)
-            errors += process_file(path, checkers)
+            errors += process_file(path, config)
         elif os.path.isdir(path):
             for root, _, files in os.walk(path):
                 for filename in files:
                     if os.path.splitext(filename)[1].lower() in ('.storyboard', '.xib'):
                         file_path = os.path.join(root, filename)
-                        checkers = config.checkers(file_path)
-                        errors += process_file(file_path, checkers)
+                        errors += process_file(file_path, config)
         else:
             print("Error: Invalid path '{}'".format(path))
             sys.exit(1)
@@ -76,11 +74,14 @@ def main():
     sys.exit(1 if errors else 0)
 
 
-def process_file(file_path, checkers):
+def process_file(file_path, config):
+    checkers = config.checkers(file_path)
     context = XibContext(file_path)
-    for rule_name, checker in checkers.items():
+    for rule_name, klass in checkers.items():
         context.rule_name = rule_name
-        checker(context)
+        rule_config = config.config_for_rule(file_path, rule_name)
+        instance = klass(rule_config)
+        instance.check(context)
     return context.errors
 
 

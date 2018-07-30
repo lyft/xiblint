@@ -3,6 +3,7 @@ Checks for incorrect use of Lyft extensions `accessibilityFormat` and `accessibi
 """
 import re
 
+from xiblint.rules import Rule
 from xiblint.xibutils import (
     get_object_id,
     get_view_user_defined_attr,
@@ -10,19 +11,20 @@ from xiblint.xibutils import (
 )
 
 
-def check(context):  # type: (xiblint.xibcontext.XibContext) -> None
-    views_with_accessibility_format = {
-        element.parent.parent
-        for element in context.tree.findall(
-            ".//userDefinedRuntimeAttributes/userDefinedRuntimeAttribute[@keyPath='accessibilityFormat']")
-    }
-    views_with_accessibility_sources = {
-        element.parent.parent
-        for element in context.tree.findall(".//connections/outletCollection[@property='accessibilitySources']")
-    }
+class AccessibilityFormat(Rule):
+    def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
+        views_with_accessibility_format = {
+            element.parent.parent
+            for element in context.tree.findall(
+                ".//userDefinedRuntimeAttributes/userDefinedRuntimeAttribute[@keyPath='accessibilityFormat']")
+        }
+        views_with_accessibility_sources = {
+            element.parent.parent
+            for element in context.tree.findall(".//connections/outletCollection[@property='accessibilitySources']")
+        }
 
-    for view in views_with_accessibility_format | views_with_accessibility_sources:
-        check_view(context, view)
+        for view in views_with_accessibility_format | views_with_accessibility_sources:
+            check_view(context, view)
 
 
 def check_view(context, view):
