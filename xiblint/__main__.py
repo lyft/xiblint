@@ -17,10 +17,10 @@ def make_epilog_text():
     for rule_name in sorted(xiblint.rules.rule_checkers.keys()):
         checker = xiblint.rules.rule_checkers[rule_name]
         description += "\t{}\n".format(rule_name)
-        doc = sys.modules[checker.__module__].__doc__
+        doc = checker.__doc__
         if doc is not None:
             for line in doc.strip().split("\n"):
-                description += " " * 24 + "{}\n".format(line)
+                description += " " * 24 + "{}\n".format(line.strip())
 
     return description
 

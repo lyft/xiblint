@@ -1,11 +1,10 @@
-"""
-Checks for ambiguous and misplaced views.
-"""
-
 from xiblint.rules import Rule
 
 
 class AutolayoutFrames(Rule):
+    """
+    Checks for ambiguous and misplaced views.
+    """
     def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
         for element in context.tree.iter():
             if element.get('ambiguous') == 'YES':

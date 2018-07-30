@@ -1,8 +1,3 @@
-"""
-Checks for text fields and text views with a placeholder and no accessibility label.
-A placeholder is not a substitute for an accessibility label, since it's no longer announced
-after the text is edited.
-"""
 from xiblint.rules import Rule
 from xiblint.xibutils import (
     get_view_user_defined_attr,
@@ -11,6 +6,11 @@ from xiblint.xibutils import (
 
 
 class AccessibilityLabelsForTextWithPlaceholder(Rule):
+    """
+    Checks for text fields and text views with a placeholder and no accessibility label.
+    A placeholder is not a substitute for an accessibility label, since it's no longer announced
+    after the text is edited.
+    """
     def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
         for element in context.tree.findall(".//textField") + context.tree.findall(".//textView"):
             placeholder = (element.get('placeholder') if element.tag == 'textField'

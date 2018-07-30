@@ -1,12 +1,11 @@
-"""
-Checks for labels with outlets into a view controller that have no accessibility identifiers.
-Labels with outlets might get dynamic text, and therefore should be accessible to UI testing.
-"""
-
 from xiblint.rules import Rule
 
 
 class AutomationIdentifiersForOutletLabels(Rule):
+    """
+    Checks for labels with outlets into a view controller that have no accessibility identifiers.
+    Labels with outlets might get dynamic text, and therefore should be accessible to UI testing.
+    """
     def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
         for outlet in context.tree.findall(".//viewController/connections/outlet"):
             destination = outlet.get('destination')

@@ -1,7 +1,3 @@
-"""
-Ensures simulated metrics are for the iPhone SE or a 38mm watch, which are currently the smallest display profiles.
-"""
-
 from xiblint.rules import Rule
 
 ALLOWED_DEVICES = [
@@ -11,6 +7,10 @@ ALLOWED_DEVICES = [
 
 
 class SimulatedMetricsRetina40(Rule):
+    """
+    Ensures simulated metrics are for the iPhone SE or a 38mm watch
+    which are currently the smallest display profiles.
+    """
     def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
         root = context.tree.getroot()
 

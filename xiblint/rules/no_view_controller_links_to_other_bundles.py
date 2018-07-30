@@ -1,11 +1,10 @@
-"""
-Ensures there are no links to storyboards in different bundles
-"""
-
 from xiblint.rules import Rule
 
 
 class NoViewControllerLinksToOtherBundles(Rule):
+    """
+    Ensures there are no links to storyboards in different bundles
+    """
     def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
         for element in context.tree.findall(".//viewControllerPlaceholder"):
             if element.get("bundleIdentifier"):

@@ -1,6 +1,3 @@
-"""
-Checks for incorrect use of Lyft extensions `accessibilityFormat` and `accessibilitySources`.
-"""
 import re
 
 from xiblint.rules import Rule
@@ -12,6 +9,9 @@ from xiblint.xibutils import (
 
 
 class AccessibilityFormat(Rule):
+    """
+    Checks for incorrect use of Lyft extensions `accessibilityFormat` and `accessibilitySources`.
+    """
     def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
         views_with_accessibility_format = {
             element.parent.parent
