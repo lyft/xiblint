@@ -1,8 +1,3 @@
-"""
-Checks for image buttons with no accessibility label.
-In this case, VoiceOver will announce the image asset's name, which might be unwanted.
-"""
-
 from xiblint.rules import Rule
 from xiblint.xibutils import (
     view_is_accessibility_element,
@@ -12,6 +7,10 @@ from xiblint.xibutils import (
 
 
 class AccessibilityLabelsForImageButtons(Rule):
+    """
+    Checks for image buttons with no accessibility label.
+    In this case, VoiceOver will announce the image asset's name, which might be unwanted.
+    """
     def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
         for button in context.tree.findall(".//button"):
             state_normal = button.find("./state[@key='normal']")
