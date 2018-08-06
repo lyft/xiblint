@@ -23,4 +23,4 @@ class StrictFontNames(Rule):
                 continue
 
             if font_name not in allowed_fonts:
-                context.error(element, f'"{font_name}" is not one of the allowed fonts.')
+                context.error(element, '"{}" is not one of the allowed fonts.'.format(font_name))
