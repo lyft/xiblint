@@ -52,6 +52,10 @@ in the .xib or .storyboard file.
 
   Ensures there are no links to other storyboards in different bundles.
 
+- `strict_font_names`
+
+  Ensures all fonts are in an allowed set. Configure `allowed_fonts` and `allow_system_fonts` in a custom rule configuration using `rules_config` (see below).
+
 ## Usage
 
 For a list of available rules, run `xiblint -h`.
@@ -72,6 +76,14 @@ Place a configuration file named `.xiblint.json` into the root of your source re
       "excluded_rules": [
         "accessibility_*"
       ]
+    },
+    "Modules": {
+      "rules": ["some_rule"],
+      "rules_config": {
+        "some_rule": {
+          "some_rule_specific_option": true
+        }
+      }
     }
   }
 }
