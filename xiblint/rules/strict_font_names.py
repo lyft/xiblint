@@ -13,7 +13,7 @@ class StrictFontNames(Rule):
     """
     def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
         allowed_fonts = self.config.get('allowed_fonts', [])
-        allow_system_fonts = self.config.get('allow_system_fonts', True)
+        allow_system_fonts = self.config.get('allow_system_fonts', False)
 
         for element in context.tree.findall(".//fontDescription") + context.tree.findall(".//font"):
             font_name = element.get("name")
