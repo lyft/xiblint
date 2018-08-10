@@ -7,12 +7,17 @@ install:
 - pip install -r requirements.txt
 - pip install -e .
 script: make test
-deploy:
-  provider: pypi
-  user: lyft-xiblint
-  password:
-    secure: xZ3m2vwcIVsdqaVx8yfjLk8zd2NeF0MRWoPCMtHUm91/RwT7gEaOcfuZuuYJ1jDBYNfLK4OmtQvo9CDL000C9AL5AsEcMVZiKRtDPRao44MzizQmkCk0HdmXs8s787keZiBa3nuasK5wmaVJcXSjhPjFGWksI+awwUIU4qFQsEM1rqxRg1uLGRp5RdxOnwepA2c5Hqgqaxxag/GPck29ZpYlFfkROkZFuKQMTlkjEwX9z1HGEI7b2SWx9lpfag543Dmins96Y89RV4XhmnghZhYz6gPOujJjanhyfeX2lwbLcTtr3FWJD60jmRKznntUdn1d+/bCb993jGT130701RCA+YVU6j1MhgEx8UY6VGcQyI3riMZRkcSZZkyviLi9HzzXXzeNYRrEd5HVVcf0iLfy2ucNSKPPhjsNcYBxU7w1DFcOQSikZczKpGoEP+NZXORM9fgF0eg9PMOhKs9IRllR46lwol1ltRirEwBcXPbYlXsUSzDygaHcb5ELaLGwLPQEwWCYPWG+bu6UdxDe3RqDvD+wkutrEfYSf5X5WgBVGOHbvo25nKvK7xzyk8Kg+DozUFf194R/1kRgH6ffuptkBBxQWnK2nPGOeyda7tU5NJiCwhv+MOTQdFqPbQ14baISaZv+8JJJruzUr9PltTvzouqdVwtdwakTrM3r3lc=
-  on:
-    tags: true
-    distributions: sdist
-    repo: lyft/xiblint
+
+jobs:
+  include:
+    - stage: deploy
+      python: '3.6'
+      deploy:
+        provider: pypi
+        user: lyft-xiblint
+        password:
+          secure: xZ3m2vwcIVsdqaVx8yfjLk8zd2NeF0MRWoPCMtHUm91/RwT7gEaOcfuZuuYJ1jDBYNfLK4OmtQvo9CDL000C9AL5AsEcMVZiKRtDPRao44MzizQmkCk0HdmXs8s787keZiBa3nuasK5wmaVJcXSjhPjFGWksI+awwUIU4qFQsEM1rqxRg1uLGRp5RdxOnwepA2c5Hqgqaxxag/GPck29ZpYlFfkROkZFuKQMTlkjEwX9z1HGEI7b2SWx9lpfag543Dmins96Y89RV4XhmnghZhYz6gPOujJjanhyfeX2lwbLcTtr3FWJD60jmRKznntUdn1d+/bCb993jGT130701RCA+YVU6j1MhgEx8UY6VGcQyI3riMZRkcSZZkyviLi9HzzXXzeNYRrEd5HVVcf0iLfy2ucNSKPPhjsNcYBxU7w1DFcOQSikZczKpGoEP+NZXORM9fgF0eg9PMOhKs9IRllR46lwol1ltRirEwBcXPbYlXsUSzDygaHcb5ELaLGwLPQEwWCYPWG+bu6UdxDe3RqDvD+wkutrEfYSf5X5WgBVGOHbvo25nKvK7xzyk8Kg+DozUFf194R/1kRgH6ffuptkBBxQWnK2nPGOeyda7tU5NJiCwhv+MOTQdFqPbQ14baISaZv+8JJJruzUr9PltTvzouqdVwtdwakTrM3r3lc=
+        on:
+          tags: true
+          distributions: sdist
+          repo: lyft/xiblint
