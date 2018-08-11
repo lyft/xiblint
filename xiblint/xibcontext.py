@@ -1,4 +1,7 @@
 from __future__ import unicode_literals
+
+from defusedxml import ElementTree
+
 from .xmlutils import parse_xml
 from .xibutils import get_object_id
 
@@ -7,9 +10,17 @@ class XibContext(object):
     def __init__(self, path):
         self.path = path
         self.success = True
-        self.tree = parse_xml(path)
-        self.rule_name = None
         self.errors = []
+        try:
+            self.tree = parse_xml(path)
+        except ElementTree.ParseError as ex:
+            self.tree = None
+            self.errors.append({
+                'file': self.path,
+                'line': ex.position[0],
+                'error': ex.msg,
+            })
+        self.rule_name = None
 
     @staticmethod
     def _get_moniker(view):
