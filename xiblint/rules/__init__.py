@@ -32,4 +32,5 @@ def _collect_checkers():
             raise TypeError("Expected function in {}".format(filepath))
     return _rule_checkers
 
+
 rule_checkers = _collect_checkers()
