@@ -77,22 +77,25 @@ def main():
 def process_file(file_path, config):
     checkers = config.checkers(file_path)
     context = XibContext(file_path)
-    for rule_name, klass in checkers.items():
-        context.rule_name = rule_name
-        rule_config = config.config_for_rule(file_path, rule_name)
-        instance = klass(rule_config)
-        instance.check(context)
+    if context.tree:
+        for rule_name, klass in checkers.items():
+            context.rule_name = rule_name
+            rule_config = config.config_for_rule(file_path, rule_name)
+            instance = klass(rule_config)
+            instance.check(context)
     return context.errors
 
 
 def print_errors(errors, reporter):
     if reporter == "raw":
         for error_dict in errors:
-            print("{}:{}: error: {} [rule: {}]".format(
+            error_str = error_dict['error']
+            if 'rule' in error_dict:
+                error_str += ' [rule: {}]'.format(error_dict['rule'])
+            print("{}:{}: error: {}".format(
                 error_dict["file"],
                 error_dict["line"],
-                error_dict["error"],
-                error_dict["rule"],
+                error_str,
             ))
     elif reporter == "json":
         print(json.dumps(errors))
