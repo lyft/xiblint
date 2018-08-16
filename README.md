@@ -54,7 +54,7 @@ in the .xib or .storyboard file.
 
 - `strict_font_names`
 
-  Ensures all fonts are in an allowed set. Configure `allowed_fonts`, `allow_system_fonts` (default is `true`), and `ignore_localization_comments` (default is `false`) in a custom rule configuration using `rules_config` (see below).
+  Ensures all fonts are in an allowed set. Configure `allowed_fonts` and `allow_system_fonts` (default is `true`) in a custom rule configuration using `rules_config` (see below).
 
 ## Usage
 
