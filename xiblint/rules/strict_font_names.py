@@ -16,7 +16,13 @@ class StrictFontNames(Rule):
         allow_system_fonts = self.config.get('allow_system_fonts', False)
 
         for element in context.tree.findall(".//fontDescription") + context.tree.findall(".//font"):
-            font_name = element.get("name")
+            # Skip <font> tags nested in a localization comment
+            if element.tag == 'font':
+                container = element.parent.parent.parent
+                if container.tag == 'attributedString' and container.get('key') == 'userComments':
+                    continue
+
+            font_name = element.get('name')
             if font_name is None:
                 if not allow_system_fonts:
                     context.error(element, "Use of system fonts is not allowed.")
