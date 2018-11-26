@@ -16,8 +16,6 @@ class UnavailableCustomClasses(Rule):
     """
     def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
         unavailable_classes = self.config.get('custom_classes', {})
-        if not unavailable_classes:
-            return
 
         for element in context.tree.findall('.//*[@customClass]'):
             full_name = self._full_class_name(element)
