@@ -1,21 +1,21 @@
 from xiblint.rules import Rule
 
 
-class UnavailableClasses(Rule):
+class UnavailableCustomClasses(Rule):
     """
-    Ensures a given custom class isn't used system types are subclassed by a set of classes.
+    Ensures a given custom class isn't used and provides a replacement suggestion.
 
     You must specify a module as part of the class name.
 
     Example configuration:
     {
-      "classes": {
+      "custom_classes": {
           "SomeModule.LegacyButton": "SomeModule.NewButton"
       }
     }
     """
     def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
-        unavailable_classes = self.config.get('classes', {})
+        unavailable_classes = self.config.get('custom_classes', {})
         if not unavailable_classes:
             return
 
