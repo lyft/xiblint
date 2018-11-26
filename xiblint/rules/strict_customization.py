@@ -26,11 +26,13 @@ class StrictCustomization(Rule):
                     if self.is_valid(element, options):
                         continue
 
-                    context.error(element, '`<' + tag_name + '>` must use `' + '`, `'.join(options) + '` instead of `' + element.get('customModule') + '.' + element.get('customClass') + '`.')
+                    context.error(element, '`<' + tag_name + '>` must use `' + '`, `'.join(options) + '` instead of `'
+                                  + element.get('customModule') + '.' + element.get('customClass') + '`.')
                     return
 
-                context.error(element, '`<' + tag_name + '>` without a custom class is prohibited. Use `' + '`, `'.join(options) + '` instead.')
+                context.error(element, '`<' + tag_name + '>` without a custom class is prohibited. Use `' + '`, `'
+                              .join(options) + '` instead.')
 
-    def is_valid(self, element, custom_classes): # type: (Rule, Element, [str]) -> Bool
+    def is_valid(self, element, custom_classes):  # type: (Rule, Element, [str]) -> Bool
         full_name = element.get('customModule') + '.' + element.get('customClass')
         return full_name in custom_classes
