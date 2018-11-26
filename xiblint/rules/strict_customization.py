@@ -17,22 +17,25 @@ class StrictCustomization(Rule):
     """
     def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
         custom_classes = self.config.get('custom_classes', {})
+
         for tag_name in custom_classes.keys():
-            for element in context.tree.findall('.//' + tag_name):
-                custom_class = element.get('customClass')
+            for element in context.tree.findall('.//{}'.format(tag_name)):
+                tag_name = element.tag
                 options = custom_classes.get(tag_name)
+                custom_class = element.get('customClass')
+                options_string = '`, `'.join(options)
 
-                if custom_class:
-                    if self.is_valid(element, options):
-                        continue
+                if not custom_class:
+                    context.error(element, '`<{}>` without a custom class is prohibited. Use `{}` instead.'
+                                  .format(tag_name, options_string))
+                    continue
 
-                    context.error(element, '`<' + tag_name + '>` must use `' + '`, `'.join(options) + '` instead of `'
-                                  + element.get('customModule') + '.' + element.get('customClass') + '`.')
-                    return
+                full_class_name = self._full_class_name(element)
+                if full_class_name in custom_classes:
+                    continue
 
-                context.error(element, '`<' + tag_name + '>` without a custom class is prohibited. Use `' + '`, `'
-                              .join(options) + '` instead.')
+                context.error(element, '`<{}>` must use `{}` instead of `{}`.'
+                              .format(tag_name, options_string, full_class_name))
 
-    def is_valid(self, element, custom_classes):  # type: (Rule, Element, [str]) -> Bool
-        full_name = element.get('customModule') + '.' + element.get('customClass')
-        return full_name in custom_classes
+    def _full_class_name(self, element):  # type: (Rule, Element) -> str
+        return "{}.{}".format(element.get('customModule'), element.get('customClass'))
