@@ -56,6 +56,10 @@ in the .xib or .storyboard file.
 
   Ensures all fonts are in an allowed set. Configure `allowed_fonts` and `allow_system_fonts` (default is `true`) in a custom rule configuration using `rules_config` (see below).
 
+- `unavailable_custom_classes`
+
+  Prevent a list of classes from appearing as custom classes. Configure `custom_classes` in a custom rule configuration using `rules_config` (see below). This is a mapping of the full name of the class (`ModuleName.ClassName`) to the suggested replacement.
+
 - `unavailable_system_classes`
 
   Ensures a system type uses a set of custom clases. Configure `system_classes` in a custom rule configuration using `rules_config` (see below).
