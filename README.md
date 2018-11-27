@@ -56,9 +56,9 @@ in the .xib or .storyboard file.
 
   Ensures all fonts are in an allowed set. Configure `allowed_fonts` and `allow_system_fonts` (default is `true`) in a custom rule configuration using `rules_config` (see below).
 
-- `strict_customization`
+- `unavailable_system_classes`
 
-  Ensures a system type uses a set of custom clases. Configure `custom_classes` in a custom rule configuration using `rules_config` (see below).
+  Ensures a system type uses a set of custom clases. Configure `system_classes` in a custom rule configuration using `rules_config` (see below).
 
 ## Usage
 

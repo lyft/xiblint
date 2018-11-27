@@ -1,7 +1,7 @@
 from xiblint.rules import Rule
 
 
-class StrictCustomization(Rule):
+class UnavailableSystemClasses(Rule):
     """
     Ensures given system types are subclassed by a set of classes.
 
@@ -9,14 +9,14 @@ class StrictCustomization(Rule):
 
     Example configuration:
     {
-      "custom_classes": {
+      "system_classes": {
           "navigationController": ["ModuleName.CustomNavigationController"],
           "button": ["ModuleName.CoolButton", "ModuleName.CoolerButton"]
       }
     }
     """
     def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
-        custom_classes = self.config.get('custom_classes', {})
+        custom_classes = self.config.get('system_classes', {})
 
         for tag_name in custom_classes.keys():
             for element in context.tree.findall('.//{}'.format(tag_name)):
