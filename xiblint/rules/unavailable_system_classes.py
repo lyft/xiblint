@@ -31,7 +31,7 @@ class UnavailableSystemClasses(Rule):
                     continue
 
                 full_class_name = self._full_class_name(element)
-                if full_class_name in custom_classes:
+                if full_class_name in options:
                     continue
 
                 context.error(element, '`<{}>` must use `{}` instead of `{}`.'
