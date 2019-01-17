@@ -1,0 +1,30 @@
+repos:
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v2.1.0
+      hooks:
+          - id: check-ast
+          - id: check-docstring-first
+          - id: check-executables-have-shebangs
+          - id: check-json
+          - id: check-merge-conflict
+          - id: check-yaml
+          - id: debug-statements
+          - id: end-of-file-fixer
+          - id: flake8
+            additional_dependencies:
+                - flake8>=3.6.0,<4
+                - flake8-bugbear
+                - flake8-builtins
+                - flake8-comprehensions
+                - flake8-commas
+          - id: trailing-whitespace
+    - repo: https://github.com/asottile/yesqa
+      rev: v0.0.8
+      hooks:
+          - id: yesqa
+            additional_dependencies:
+                - flake8>=3.6.0,<4
+                - flake8-bugbear
+                - flake8-builtins
+                - flake8-comprehensions
+                - flake8-commas
