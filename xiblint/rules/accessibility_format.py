@@ -1,14 +1,12 @@
 import re
 
 from xiblint.rules import Rule
+from xiblint.xibcontext import XibContext
 from xiblint.xibutils import (
     get_object_id,
     get_view_user_defined_attr,
     view_accessibility_identifier,
 )
-
-if False:  # if TYPE_CHECKING:
-    from xiblint.xibcontext import XibContext
 
 
 class AccessibilityFormat(Rule):

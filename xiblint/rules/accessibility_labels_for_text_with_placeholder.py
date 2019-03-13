@@ -1,11 +1,9 @@
 from xiblint.rules import Rule
+from xiblint.xibcontext import XibContext
 from xiblint.xibutils import (
     get_view_user_defined_attr,
     view_is_accessibility_element,
 )
-
-if False:  # if TYPE_CHECKING:
-    from xiblint.xibcontext import XibContext
 
 
 class AccessibilityLabelsForTextWithPlaceholder(Rule):

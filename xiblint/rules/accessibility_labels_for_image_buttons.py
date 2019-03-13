@@ -1,12 +1,10 @@
 from xiblint.rules import Rule
+from xiblint.xibcontext import XibContext
 from xiblint.xibutils import (
     view_is_accessibility_element,
     view_accessibility_label,
     get_view_user_defined_attr,
 )
-
-if False:  # if TYPE_CHECKING:
-    from xiblint.xibcontext import XibContext
 
 
 class AccessibilityLabelsForImageButtons(Rule):
