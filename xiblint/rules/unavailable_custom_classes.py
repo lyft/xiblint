@@ -1,9 +1,7 @@
 from xml.etree.ElementTree import Element
 
 from xiblint.rules import Rule
-
-if False:  # if TYPE_CHECKING:
-    from xiblint.xibcontext import XibContext
+from xiblint.xibcontext import XibContext
 
 
 class UnavailableCustomClasses(Rule):
