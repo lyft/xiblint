@@ -7,12 +7,15 @@ from xiblint.xibutils import (
     view_accessibility_identifier,
 )
 
+if False:  # if TYPE_CHECKING:
+    from xiblint.xibcontext import XibContext
+
 
 class AccessibilityFormat(Rule):
     """
     Checks for incorrect use of Lyft extensions `accessibilityFormat` and `accessibilitySources`.
     """
-    def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
+    def check(self, context):  # type: (XibContext) -> None
         views_with_accessibility_format = {
             element.parent.parent
             for element in context.tree.findall(

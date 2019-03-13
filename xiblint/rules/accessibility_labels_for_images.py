@@ -5,13 +5,16 @@ from xiblint.xibutils import (
     get_view_user_defined_attr,
 )
 
+if False:  # if TYPE_CHECKING:
+    from xiblint.xibcontext import XibContext
+
 
 class AccessibilityLabelsForImages(Rule):
     """
     Checks for accessible images with no accessibility label.
     In this case, VoiceOver will announce the image asset's name, which might be unwanted.
     """
-    def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
+    def check(self, context):  # type: (XibContext) -> None
         for image_view in context.tree.findall(".//imageView"):
             if (
                     view_is_accessibility_element(image_view) is True and

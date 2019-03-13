@@ -1,5 +1,8 @@
 from xiblint.rules import Rule
 
+if False:  # if TYPE_CHECKING:
+    from xiblint.xibcontext import XibContext
+
 
 class StrictFontNames(Rule):
     """
@@ -11,7 +14,7 @@ class StrictFontNames(Rule):
       "allow_system_fonts": true
     }
     """
-    def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
+    def check(self, context):  # type: (XibContext) -> None
         allowed_fonts = self.config.get('allowed_fonts', [])
         allow_system_fonts = self.config.get('allow_system_fonts', False)
 

@@ -1,5 +1,8 @@
 from xiblint.rules import Rule
 
+if False:  # if TYPE_CHECKING:
+    from xiblint.xibcontext import XibContext
+
 ALLOWED_DEVICES = [
     'retina4_0',
     'watch38',
@@ -11,7 +14,7 @@ class SimulatedMetricsRetina40(Rule):
     Ensures simulated metrics are for the iPhone SE or a 38mm watch
     which are currently the smallest display profiles.
     """
-    def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
+    def check(self, context):  # type: (XibContext) -> None
         root = context.tree.getroot()
 
         # In Xcode 9 this metadata is in a new place

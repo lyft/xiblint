@@ -4,10 +4,10 @@ import weakref
 import sys
 
 assert 'xml.etree.ElementTree' not in sys.modules
-sys.modules['_elementtree'] = {}
+sys.modules['_elementtree'] = None  # type: ignore
 
-from xml.etree import ElementTree  # noqa E402
-from defusedxml.ElementTree import DefusedXMLParser  # noqa E402
+from xml.etree import ElementTree  # noqa: E402
+from defusedxml.ElementTree import DefusedXMLParser  # noqa: E402
 
 
 class _TreeBuilder(ElementTree.TreeBuilder):
