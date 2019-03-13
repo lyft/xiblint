@@ -4,6 +4,9 @@ from xiblint.xibutils import (
     view_is_accessibility_element,
 )
 
+if False:  # if TYPE_CHECKING:
+    from xiblint.xibcontext import XibContext
+
 
 class AccessibilityLabelsForTextWithPlaceholder(Rule):
     """
@@ -11,7 +14,7 @@ class AccessibilityLabelsForTextWithPlaceholder(Rule):
     A placeholder is not a substitute for an accessibility label, since it's no longer announced
     after the text is edited.
     """
-    def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
+    def check(self, context):  # type: (XibContext) -> None
         for element in context.tree.findall(".//textField") + context.tree.findall(".//textView"):
             placeholder = (element.get('placeholder') if element.tag == 'textField'
                            else get_view_user_defined_attr(element, 'placeholder'))

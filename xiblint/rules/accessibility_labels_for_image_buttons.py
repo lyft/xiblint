@@ -5,13 +5,16 @@ from xiblint.xibutils import (
     get_view_user_defined_attr,
 )
 
+if False:  # if TYPE_CHECKING:
+    from xiblint.xibcontext import XibContext
+
 
 class AccessibilityLabelsForImageButtons(Rule):
     """
     Checks for image buttons with no accessibility label.
     In this case, VoiceOver will announce the image asset's name, which might be unwanted.
     """
-    def check(self, context):  # type: (Rule, xiblint.xibcontext.XibContext) -> None
+    def check(self, context):  # type: (XibContext) -> None
         for button in context.tree.findall(".//button"):
             state_normal = button.find("./state[@key='normal']")
             if (
