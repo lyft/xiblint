@@ -6,12 +6,10 @@ import os
 import sys
 
 from xiblint import __version__
-from xiblint.config import Config
-from xiblint.xibcontext import XibContext
-import xiblint.rules
 
 
 def make_epilog_text():
+    import xiblint.rules
     description = "Lint rules:\n"
 
     for rule_name in sorted(xiblint.rules.rule_checkers.keys()):
@@ -26,6 +24,9 @@ def make_epilog_text():
 
 
 def main():
+    from patch_element_tree import patch_element_tree
+    patch_element_tree()
+
     parser = argparse.ArgumentParser(
         description='.xib / .storyboard linter',
         epilog=make_epilog_text(),
@@ -41,6 +42,7 @@ def main():
     args = parser.parse_args()
 
     try:
+        from xiblint.config import Config
         config = Config()
     except IOError as ex:
         print('Error: {}\n'.format(ex))
@@ -75,6 +77,7 @@ def main():
 
 
 def process_file(file_path, config):
+    from xiblint.xibcontext import XibContext
     checkers = config.checkers(file_path)
     context = XibContext(file_path)
     if context.tree:
