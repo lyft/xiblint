@@ -30,10 +30,10 @@ class NamedColors(Rule):
 
             # Require a name
             if element.get('name') is None:
-                context.error(element, "Use of custom colors is not allowed. Use a named color from an asset catalog instead.")
+                context.error(element, "Use of custom colors is not allowed. Use a named color instead.")
                 continue
 
             # If `catalog` is present, it's a named system color
             if element.get('catalog') is not None:
-                context.error(element, "Use of named system colors is not allowed. Use a named color from an asset catalog instead.")
+                context.error(element, "Use of named system colors is not allowed. Use a named color instead.")
                 continue
