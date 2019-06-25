@@ -24,10 +24,16 @@ class NamedColors(Rule):
             if element.parent.tag == 'namedColor':
                 continue
 
-            # Skip colors with alpha
-            if ignore_alpha and element.get('alpha') is not None:
+            # Skip colors with alpha (if configured)
+            if ignore_alpha and element.get('alpha') != "1":
                 continue
 
+            # Require a name
             if element.get('name') is None:
-                context.error(element, "Use of custom colors is not allowed. Use a named color instead.")
+                context.error(element, "Use of custom colors is not allowed. Use a named color from an asset catalog instead.")
+                continue
+
+            # If `catalog` is present, it's a named system color
+            if element.get('catalog') is not None:
+                context.error(element, "Use of named system colors is not allowed. Use a named color from an asset catalog instead.")
                 continue
