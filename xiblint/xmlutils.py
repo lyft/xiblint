@@ -1,13 +1,7 @@
 import weakref
 
-# HACK to ensure cElementTree is not loaded -- we need the pure Python implementation
-import sys
-
-assert 'xml.etree.ElementTree' not in sys.modules
-sys.modules['_elementtree'] = None  # type: ignore
-
-from xml.etree import ElementTree  # noqa: E402
-from defusedxml.ElementTree import DefusedXMLParser  # noqa: E402
+from xml.etree import ElementTree
+from defusedxml.ElementTree import DefusedXMLParser
 
 
 class _TreeBuilder(ElementTree.TreeBuilder):
