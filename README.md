@@ -40,6 +40,10 @@ in the .xib or .storyboard file.
   Checks for labels with outlets into a view controller that have no accessibility identifiers.
   Labels with outlets might get dynamic text, and therefore should be accessible to UI testing.
 
+- `named_colors`
+
+  Ensures all colors are using named colors from an asset catalog. Configure `ignore_alpha` (default is `false`) in a custom rule configuration using `rules_config` (see below) if you’d like to ignore colors with alpha.
+
 - `no_trait_variations`
 
   Ensures Trait Variations are disabled.
