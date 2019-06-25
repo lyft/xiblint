@@ -25,7 +25,7 @@ class NamedColors(Rule):
                 continue
 
             # Skip colors with alpha (if configured)
-            if ignore_alpha and element.get('alpha') != "1":
+            if ignore_alpha and element.get('alpha') != '1':
                 continue
 
             # Require a name
