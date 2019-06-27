@@ -36,4 +36,3 @@ class StrictFontSizes(Rule):
 
             if int(size) < minimum_size:
                 context.error(element, '"{}" is smaller than the allowed minimum size ({})'.format(size, minimum_size))
-
