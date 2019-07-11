@@ -8,31 +8,35 @@ class StrictFontSizes(Rule):
 
     Example configuration:
     {
-      "minimum_size": 13
+      "minimum_size": 13,
+      "maximum_size": 30
     }
     """
     def check(self, context):  # type: (XibContext) -> None
-        minimum_size = self.config.get('minimum_size', 10)
+        minimum_size = self.config.get('minimum_size', 0)
+        maximum_size = self.config.get('maximum_size', 1000)
 
-        for element in context.tree.findall(".//font"):
-            # Skip <font> tags nested in a localization comment
-            container = element.parent.parent.parent
-            if container.tag == 'attributedString' and container.get('key') == 'userComments':
-                continue
+        for element in context.tree.findall('.//font') + context.tree.findall('.//fontDescription'):
+            attribute_name = None
 
-            size = element.get('size')
+            if element.tag == 'font':
+                # Skip <font> tags nested in a localization comment
+                container = element.parent.parent.parent
+                if container.tag == 'attributedString' and container.get('key') == 'userComments':
+                    continue
+
+                attribute_name = 'size'
+            else:
+                attribute_name = 'pointSize'
+
+            size = element.get(attribute_name)
             if size is None:
-                context.error(element, "Invalid <font> found. Must have a size.")
+                context.error(element, 'Invalid <{}> found. Must have a {}.'.format(element.tag), attribute_name)
                 continue
 
-            if int(size) < minimum_size:
-                context.error(element, '"{}" is smaller than the allowed minimum size ({})'.format(size, minimum_size))
+            point_size = int(size)
 
-        for element in context.tree.findall(".//fontDescription"):
-            size = element.get('pointSize')
-            if size is None:
-                context.error(element, "Invalid <fontDescription> found. Must have a pointSize.")
-                continue
-
-            if int(size) < minimum_size:
+            if point_size < minimum_size:
                 context.error(element, '"{}" is smaller than the allowed minimum size ({})'.format(size, minimum_size))
+            elif point_size > maximum_size:
+                context.error(element, '"{}" is larger than the allowed maximum size ({})'.format(size, maximum_size))
