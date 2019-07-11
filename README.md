@@ -62,7 +62,7 @@ in the .xib or .storyboard file.
 
 - `strict_font_sizes`
 
-  Ensures all fonts are above a minimum font size. Configure `minimum_size` (default is `10`) in a custom rule configuration using `rules_config` (see below).
+  Ensures all fonts are above a minimum font size. Configure `minimum_size` (default is `0`) and/or `maximum_size` (default is `1000`) in a custom rule configuration using `rules_config` (see below).
 
 - `unavailable_custom_classes`
 
