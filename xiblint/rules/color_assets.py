@@ -3,6 +3,7 @@ from xiblint.xibcontext import XibContext
 import glob
 import json
 
+
 class ColorAssets(Rule):
     def __init__(self, config):
         asset_catalog_path = config.get('asset_catalog', None)
@@ -71,7 +72,7 @@ class ColorAssets(Rule):
 
     def _load_components(self, components):
         return (self._load_component(components, "red"), self._load_component(components, "green"),
-            self._load_component(components, "blue"), self._load_component(components, "alpha"))
+                self._load_component(components, "blue"), self._load_component(components, "alpha"))
 
     def _load_component(self, components, key):
         string = components[key]
