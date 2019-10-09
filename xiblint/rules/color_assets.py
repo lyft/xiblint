@@ -1,6 +1,7 @@
 from xiblint.rules import Rule
 from xiblint.xibcontext import XibContext
-
+import glob
+import json
 
 class ColorAssets(Rule):
     """
@@ -12,21 +13,26 @@ class ColorAssets(Rule):
     }
     """
     def check(self, context):  # type: (XibContext) -> None
-        asset_catalog_path =  = self.config.get('asset_catalog', None)
+        asset_catalog_path = self.config.get('asset_catalog', None)
         if asset_catalog_path is None:
             # TODO: Show an error?
             return
 
+        self.assets = glob.glob("{}/**/*.colorset".format(asset_catalog_path))
+        self.cache = {}
+
+        # TODO: Show an error if there aren't any color assets in this asset catalog
+
         for element in context.tree.findall("./namedColor"):
             name = element.get("name")
-            if name is None
+            if name is None:
                 context.error(element, "Named color is missing a name.")
                 continue
 
-            # TODO: Find the color in the cache or find the JSON file on disk for a given `name`
-            # TODO: Convert color values from the various JSON formats to the proper float format
-            # TODO: Ensure we only look at the light variant if there are multiple variants
-            # TODO: Cache the value if loaded
+            color = self.colors[name]
+            if color is None:
+                context.error(element, "Named color is missing from asset catalog.")
+                continue
 
             color_element = element.find("color")
             if color_element is None:
@@ -41,5 +47,27 @@ class ColorAssets(Rule):
                 context.error(element, "Named color has invalid color value.")
                 continue
 
-            # TODO: Compare the color here to the color from the asset catalog
-            # TODO: If the don't match (with some tolerence), add an error
+            if float(red) is not color.red:
+                context.error(element, "Color value does not match asset catalog.")
+
+    def load_color(name):
+        color = self.colors[name]
+        if color is not None:
+            return color
+
+        for path in self.assets:
+            if path.endswith("{}.colorset".format(name)):
+                print("{}/Contents.json".format(path))
+                with open("{}/Contents.json".format(path)) as json_file:
+                    data = json.load(json_file)
+                    components = data["colors"][0]["color"]["components"]
+                    color = (load_component(components, "red"), load_component(components, "green"), load_component(components, "blue"), load_component(components, "alpha"))
+                    self.colors[name] = color
+
+    def load_component(components, key):
+        string = components[key]
+
+        if "." in string:
+            return float(string)
+
+        return float(string) / 255.0
