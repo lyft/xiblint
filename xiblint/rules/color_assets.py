@@ -14,7 +14,6 @@ class ColorAssets(Rule):
 
         if not self.assets:
             raise SystemExit("error: Failed to load asset catalog at: '{}'".format(asset_catalog_path))
-            return
 
         self.colors = {}
 
