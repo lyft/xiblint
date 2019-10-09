@@ -31,17 +31,17 @@ class ColorAssets(Rule):
     def check(self, context):  # type: (XibContext) -> None
         for element in context.tree.findall(".//namedColor"):
             name = element.get("name")
-            if name is None:
+            if not name:
                 context.error(element, "Named color is missing a name.")
                 continue
 
             color = self.load_color(name)
-            if color is None:
+            if not color:
                 context.error(element, "Named color '{}' is missing from asset catalog.".format(name))
                 continue
 
             color_element = element.find("color")
-            if color_element is None:
+            if not color_element:
                 context.error(element, "Named color '{}' is missing color definition.".format(name))
                 continue
 
@@ -49,14 +49,14 @@ class ColorAssets(Rule):
             green = color_element.get("green")
             blue = color_element.get("blue")
             alpha = color_element.get("alpha")
-            if red is None or green is None or blue is None or alpha is None:
+            if not all([red, green, blue, alpha]):
                 context.error(element, "Named color '{}' has invalid color value.".format(name))
                 continue
 
             if float(red) != color[0] or float(green) != color[1] or float(blue) != color[2] or float(alpha) != color[3]:
                 context.error(element, "Color value for '{}' does not match asset catalog.".format(name))
 
-    def load_color(self, name):
+    def _load_color(self, name):
         if name in self.colors:
             return self.colors[name]
 
@@ -71,7 +71,7 @@ class ColorAssets(Rule):
                 self.colors[name] = color
                 return color
 
-    def load_component(self, components, key):
+    def _load_component(self, components, key):
         string = components[key]
 
         if "." in string:
