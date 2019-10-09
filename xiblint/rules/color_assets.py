@@ -7,15 +7,12 @@ class ColorAssets(Rule):
     def __init__(self, config):
         asset_catalog_path = config.get('asset_catalog', None)
         if asset_catalog_path is None:
-            # TODO: Proper error
-            print("Asset catalog not found. Please configure 'asset_catalog'.")
-            return
+            raise SystemExit("error: Asset catalog not found. Please configure 'asset_catalog'.")
 
         self.assets = glob.glob("{}/**/*.colorset".format(asset_catalog_path))
 
         if not self.assets:
-            # TODO: Proper error
-            print("Failed to load asset catalog at: '{}'".format(asset_catalog_path))
+            raise SystemExit("error: Failed to load asset catalog at: '{}'".format(asset_catalog_path))
             return
 
         self.colors = {}
@@ -35,13 +32,13 @@ class ColorAssets(Rule):
                 context.error(element, "Named color is missing a name.")
                 continue
 
-            color = self.load_color(name)
-            if not color:
+            expected_color = self._load_color(name)
+            if not expected_color:
                 context.error(element, "Named color '{}' is missing from asset catalog.".format(name))
                 continue
 
             color_element = element.find("color")
-            if not color_element:
+            if color_element is None:
                 context.error(element, "Named color '{}' is missing color definition.".format(name))
                 continue
 
@@ -53,7 +50,9 @@ class ColorAssets(Rule):
                 context.error(element, "Named color '{}' has invalid color value.".format(name))
                 continue
 
-            if float(red) != color[0] or float(green) != color[1] or float(blue) != color[2] or float(alpha) != color[3]:
+            color = (float(red), float(green), float(blue), float(alpha))
+
+            if color != expected_color:
                 context.error(element, "Color value for '{}' does not match asset catalog.".format(name))
 
     def _load_color(self, name):
@@ -66,10 +65,13 @@ class ColorAssets(Rule):
 
             with open("{}/Contents.json".format(path)) as json_file:
                 data = json.load(json_file)
-                components = data["colors"][0]["color"]["components"]
-                color = (self.load_component(components, "red"), self.load_component(components, "green"), self.load_component(components, "blue"), self.load_component(components, "alpha"))
+                color = self._load_components(data["colors"][0]["color"]["components"])
                 self.colors[name] = color
                 return color
+
+    def _load_components(self, components):
+        return (self._load_component(components, "red"), self._load_component(components, "green"),
+            self._load_component(components, "blue"), self._load_component(components, "alpha"))
 
     def _load_component(self, components, key):
         string = components[key]
