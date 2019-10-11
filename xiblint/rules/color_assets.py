@@ -68,6 +68,7 @@ class ColorAssets(Rule):
             color = (float(red), float(green), float(blue), float(alpha))
 
             if not self._compare_colors(color, expected_color):
+                print(color, expected_color)
                 context.error(
                     element,
                     "Color value for '{}' does not match asset catalog.".format(name),
@@ -105,6 +106,4 @@ class ColorAssets(Rule):
 
     def _compare_colors(self, lhs, rhs):
         # Compare with only 4 decimal places
-        return "{:.4f},{:.4f},{:.4f},{:.4f}".format(
-            lhs[0], lhs[1], lhs[2], lhs[3]
-        ) == "{:.4f},{:.4f},{:.4f},{:.4f}".format(rhs[0], rhs[1], rhs[2], rhs[3])
+        return all(format(l, ".4f") == format(r, ".4f") for l, r in zip(lhs, rhs))
