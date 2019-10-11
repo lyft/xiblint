@@ -9,7 +9,7 @@ class ColorAssets(Rule):
         asset_catalog_path = config.get("asset_catalog", None)
         if asset_catalog_path is None:
             raise SystemExit(
-                "error: Asset catalog not found. Please configure 'asset_catalog'."
+                "error: Asset catalog not found. Please configure 'asset_catalog'.",
             )
 
         self.assets = glob.glob("{}/**/*.colorset".format(asset_catalog_path))
@@ -17,8 +17,8 @@ class ColorAssets(Rule):
         if not self.assets:
             raise SystemExit(
                 "error: Failed to load asset catalog at: '{}'".format(
-                    asset_catalog_path
-                )
+                    asset_catalog_path,
+                ),
             )
 
         self.colors = {}
@@ -61,7 +61,7 @@ class ColorAssets(Rule):
             alpha = color_element.get("alpha")
             if not all([red, green, blue, alpha]):
                 context.error(
-                    element, "Named color '{}' has invalid color value.".format(name)
+                    element, "Named color '{}' has invalid color value.".format(name),
                 )
                 continue
 
