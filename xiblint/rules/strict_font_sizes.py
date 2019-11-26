@@ -31,7 +31,7 @@ class StrictFontSizes(Rule):
 
             size = element.get(attribute_name)
             if size is None:
-                context.error(element, 'Invalid <{}> found. Must have a {}.'.format(element.tag), attribute_name)
+                context.error(element, 'Invalid <{}> found. Must have a {}.'.format(element.tag, attribute_name))
                 continue
 
             point_size = int(size)
