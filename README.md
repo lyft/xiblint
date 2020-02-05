@@ -56,13 +56,17 @@ in the .xib or .storyboard file.
 
   Ensures there are no links to other storyboards in different bundles.
 
+- `strict_fonts`
+
+  Ensures all font names and sizes are in an allowed set. Configure `allowed_fonts` with an array of dictionaries containing a `name` and `size` in a custom rule configuration using `rules_config` (see below).
+
 - `strict_font_names`
 
-  Ensures all fonts are in an allowed set. Configure `allowed_fonts` and `allow_system_fonts` (default is `true`) in a custom rule configuration using `rules_config` (see below).
+  Ensures all font namess are in an allowed set. Configure `allowed_fonts` and `allow_system_fonts` (default is `true`) in a custom rule configuration using `rules_config` (see below). This is a good option if `strict_fonts` is too strict.
 
 - `strict_font_sizes`
 
-  Ensures all fonts are above a minimum font size. Configure `minimum_size` (default is `0`) and/or `maximum_size` (default is `1000`) in a custom rule configuration using `rules_config` (see below).
+  Ensures all font sizes are above a minimum font size. Configure `minimum_size` (default is `0`) and/or `maximum_size` (default is `1000`) in a custom rule configuration using `rules_config` (see below). This is a good option if `strict_fonts` is too strict.
 
 - `unavailable_custom_classes`
 
