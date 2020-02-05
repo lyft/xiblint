@@ -46,8 +46,8 @@ class StrictFonts(Rule):
 
             name = element.get('name')
             if name is None:
-              context.error(element, 'Invalid <{}> found. Must have a name.'.format(element.tag))
-              continue
+                context.error(element, 'Invalid <{}> found. Must have a name.'.format(element.tag))
+                continue
 
             if (name, size) not in allowed_fonts:
-              context.error(element, 'Invalid font found {} {}. Please use an allowed font.'.format(name, size))
+                context.error(element, 'Invalid font found {} {}. Please use an allowed font.'.format(name, size))
