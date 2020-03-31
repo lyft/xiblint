@@ -78,7 +78,7 @@ in the .xib or .storyboard file.
 
 - `enforce_system_properties`
 
-  Ensures a property in a system type is set to one of the allowed properties. Configure `system_properties` in a custom rule configuration using `rules_config` (see below).
+  Ensures a property in a system type is set to one of the allowed properties. Configure `system_properties` in a custom rule configuration using `rules_config` (see below). Use `null` as an option to allow default value.
 
 ## Usage
 
