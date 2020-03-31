@@ -10,10 +10,10 @@ class EnforceSystemProperties(Rule):
     {
       "system_properties": {
         "label": {
-          "adjustsFontForContentSizeCategory": [null, "NO"]
+          "adjustsFontForContentSizeCategory": ["YES"]
         },
         "button": {
-          "reversesTitleShadowWhenHighlighted": ["YES"]
+          "reversesTitleShadowWhenHighlighted": [null, "NO"]
         }
       }
     }
