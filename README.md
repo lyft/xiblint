@@ -76,6 +76,10 @@ in the .xib or .storyboard file.
 
   Ensures a system type uses a set of custom clases. Configure `system_classes` in a custom rule configuration using `rules_config` (see below).
 
+- `enforce_system_properties`
+
+  Ensures a property in a system type is set to one of the allowed properties. Configure `system_properties` in a custom rule configuration using `rules_config` (see below). Use `null` as an option to allow default value.
+
 ## Usage
 
 For a list of available rules, run `xiblint -h`.
