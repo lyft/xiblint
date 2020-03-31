@@ -1,5 +1,3 @@
-from xml.etree.ElementTree import Element
-
 from xiblint.rules import Rule
 from xiblint.xibcontext import XibContext
 
