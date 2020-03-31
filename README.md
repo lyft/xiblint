@@ -76,6 +76,10 @@ in the .xib or .storyboard file.
 
   Ensures a system type uses a set of custom clases. Configure `system_classes` in a custom rule configuration using `rules_config` (see below).
 
+- `unavailable_system_properties`
+
+  Ensures a system type does not customize a set of properties. Configure `system_properties` in a custom rule configuration using `rules_config` (see below).
+
 ## Usage
 
 For a list of available rules, run `xiblint -h`.
