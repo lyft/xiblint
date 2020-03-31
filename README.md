@@ -76,9 +76,9 @@ in the .xib or .storyboard file.
 
   Ensures a system type uses a set of custom clases. Configure `system_classes` in a custom rule configuration using `rules_config` (see below).
 
-- `unavailable_system_properties`
+- `enforce_system_properties`
 
-  Ensures a system type does not customize a set of properties. Configure `system_properties` in a custom rule configuration using `rules_config` (see below).
+  Ensures a property in a system type is set to one of the allowed properties. Configure `system_properties` in a custom rule configuration using `rules_config` (see below).
 
 ## Usage
 
