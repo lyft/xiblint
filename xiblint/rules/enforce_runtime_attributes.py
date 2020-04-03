@@ -32,7 +32,7 @@ class EnforceRuntimeAttributes(Rule):
                 elements = context.tree.findall(".//{}".format(full_class_name))
             elif len(full_class_name_split) == 2:
                 elements = context.tree.findall(".//*[@customClass='{}'][@customModule='{}']"
-                                              .format(full_class_name_split[1], full_class_name_split[0]))
+                                                .format(full_class_name_split[1], full_class_name_split[0]))
 
             for element in elements:
                 for attribute_keyPath in enforced_attributes.keys():
