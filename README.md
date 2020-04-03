@@ -40,6 +40,14 @@ in the .xib or .storyboard file.
   Checks for labels with outlets into a view controller that have no accessibility identifiers.
   Labels with outlets might get dynamic text, and therefore should be accessible to UI testing.
 
+- `enforce_runtime_attributes`
+
+  Ensures a runtime attribute is set to one of the allowed values. Configure `runtime_attributes` in a custom rule configuration using `rules_config` (see below). Use `null` as an option to allow no value.
+
+- `enforce_system_properties`
+
+  Ensures a property in a system type is set to one of the allowed values. Configure `system_properties` in a custom rule configuration using `rules_config` (see below). Use `null` as an option to allow default value.
+
 - `named_colors`
 
   Ensures all colors are using named colors from an asset catalog. Configure `ignore_alpha` (default is `false`) in a custom rule configuration using `rules_config` (see below) if you’d like to ignore colors with alpha.
@@ -75,10 +83,6 @@ in the .xib or .storyboard file.
 - `unavailable_system_classes`
 
   Ensures a system type uses a set of custom clases. Configure `system_classes` in a custom rule configuration using `rules_config` (see below).
-
-- `enforce_system_properties`
-
-  Ensures a property in a system type is set to one of the allowed properties. Configure `system_properties` in a custom rule configuration using `rules_config` (see below). Use `null` as an option to allow default value.
 
 ## Usage
 
