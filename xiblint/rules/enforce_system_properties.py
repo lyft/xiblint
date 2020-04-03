@@ -4,7 +4,7 @@ from xiblint.xibcontext import XibContext
 
 class EnforceSystemProperties(Rule):
     """
-    Ensures unavailable system properties are not used.
+    Ensures a property in a system type is set to one of the allowed values.
 
     Example configuration:
     {
