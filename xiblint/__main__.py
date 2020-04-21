@@ -24,7 +24,7 @@ def make_epilog_text():
 
 
 def main():
-    from patch_element_tree import patch_element_tree
+    from .patch_element_tree import patch_element_tree
     patch_element_tree()
 
     parser = argparse.ArgumentParser(
