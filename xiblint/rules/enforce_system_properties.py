@@ -14,6 +14,9 @@ class EnforceSystemProperties(Rule):
         },
         "button": {
           "reversesTitleShadowWhenHighlighted": [null, "NO"]
+        },
+        "stackView/color": {
+          "key": [null]
         }
       }
     }
@@ -23,7 +26,6 @@ class EnforceSystemProperties(Rule):
 
         for tag_name in system_properties.keys():
             for element in context.tree.findall('.//{}'.format(tag_name)):
-                tag_name = element.tag
                 enforced_properties = system_properties.get(tag_name)
                 for property_name in enforced_properties.keys():
                     property_allowed_values = enforced_properties.get(property_name)
