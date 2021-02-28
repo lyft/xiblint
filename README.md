@@ -52,6 +52,10 @@ in the .xib or .storyboard file.
 
   Ensures all colors are using named colors from an asset catalog. Configure `ignore_alpha` (default is `false`) in a custom rule configuration using `rules_config` (see below) if you’d like to ignore colors with alpha.
 
+- `strict_color_names`
+
+  Ensures all color names are in an allowed set. Configure `allowed_colors` and `allow_system_colors` (default is `false`) in a custom rule configuration using `rules_config` (see below). This is a good option if `named_colors` is too strict.
+
 - `no_trait_variations`
 
   Ensures Trait Variations are disabled.
