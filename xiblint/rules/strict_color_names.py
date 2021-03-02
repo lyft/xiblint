@@ -43,4 +43,5 @@ class StrictColorNames(Rule):
                 continue
 
             if color_name not in allowed_colors:
-                context.error(element, '"{}" is not one of the allowed colors.'.format(color_name))
+                context.error(element, '"{}" is not one of the allowed colors: "{}".'
+                              .format(color_name, allowed_colors))
