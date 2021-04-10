@@ -26,12 +26,8 @@ class NamedColors(Rule):
             if container.tag == 'attributedString' and container.get('key') == 'userComments':
                 continue
 
-            # Skip <color> tags part of a color definition
-            if element.parent.tag == 'namedColor':
-                continue
-
-            # Skip <color> tags part of a system color definition
-            if element.parent.tag == 'systemColor':
+            # Skip <color> tags part of a color or system color definition
+            if element.parent.tag == 'namedColor' or element.parent.tag == 'systemColor':
                 continue
 
             # Skip colors with alpha (if configured)
