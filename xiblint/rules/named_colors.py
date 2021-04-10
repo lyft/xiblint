@@ -63,6 +63,7 @@ class NamedColors(Rule):
                 continue
 
             # If allowed_colors is set, verify that color_name is included
+            options_string = '`, `'.join(map(str, allowed_colors))
             if allowed_colors and color_name not in allowed_colors:
-                context.error(element, '"{}" is not one of the allowed colors: "{}".'
-                              .format(color_name, allowed_colors))
+                context.error(element, '"{}" is not one of the allowed colors: `{}`.'
+                              .format(color_name, options_string))
