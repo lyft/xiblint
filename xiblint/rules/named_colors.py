@@ -10,13 +10,15 @@ class NamedColors(Rule):
     {
       "allowed_colors": ["CustomRed", "CustomGreen"],
       "allow_system_colors": true,
-      "ignore_alpha": true
+      "ignore_alpha": true,
+      "allow_clear_color": true
     }
     """
     def check(self, context):  # type: (XibContext) -> None
         allowed_colors = self.config.get('allowed_colors', [])
         allow_system_colors = self.config.get('allow_system_colors', False)
         ignore_alpha = self.config.get('ignore_alpha', False)
+        allow_clear_color = self.config.get('allow_clear_color', False)
 
         for element in context.tree.findall(".//color"):
             # Skip <color> tags nested in a localization comment
@@ -34,6 +36,14 @@ class NamedColors(Rule):
 
             # Skip colors with alpha (if configured)
             if ignore_alpha and element.get('alpha') is not None and element.get('alpha') != '1':
+                continue
+
+            # Skip clear color (if configured)
+            if (
+                    allow_clear_color and
+                    element.get('alpha') is not None and element.get('white') is not None and
+                    element.get('alpha') == '0.0' and element.get('white') == '0.0'
+            ):
                 continue
 
             # If `systemColor` or `catalog` is present, it's a named system color
