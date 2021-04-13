@@ -10,13 +10,15 @@ class NamedColors(Rule):
     {
       "allowed_colors": ["CustomRed", "CustomGreen"],
       "allow_system_colors": true,
-      "ignore_alpha": true
+      "ignore_alpha": true,
+      "allow_clear_color": true
     }
     """
     def check(self, context):  # type: (XibContext) -> None
         allowed_colors = self.config.get('allowed_colors', [])
         allow_system_colors = self.config.get('allow_system_colors', False)
         ignore_alpha = self.config.get('ignore_alpha', False)
+        allow_clear_color = self.config.get('allow_clear_color', False)
 
         for element in context.tree.findall(".//color"):
             # Skip <color> tags nested in a localization comment
@@ -24,16 +26,20 @@ class NamedColors(Rule):
             if container.tag == 'attributedString' and container.get('key') == 'userComments':
                 continue
 
-            # Skip <color> tags part of a color definition
-            if element.parent.tag == 'namedColor':
-                continue
-
-            # Skip <color> tags part of a system color definition
-            if element.parent.tag == 'systemColor':
+            # Skip <color> tags part of a color or system color definition
+            if element.parent.tag == 'namedColor' or element.parent.tag == 'systemColor':
                 continue
 
             # Skip colors with alpha (if configured)
             if ignore_alpha and element.get('alpha') is not None and element.get('alpha') != '1':
+                continue
+
+            # Skip clear color (if configured)
+            if (
+                    allow_clear_color and
+                    element.get('alpha') is not None and element.get('white') is not None and
+                    element.get('alpha') == '0.0' and element.get('white') == '0.0'
+            ):
                 continue
 
             # If `systemColor` or `catalog` is present, it's a named system color
@@ -53,6 +59,7 @@ class NamedColors(Rule):
                 continue
 
             # If allowed_colors is set, verify that color_name is included
+            options_string = '`, `'.join(map(str, allowed_colors))
             if allowed_colors and color_name not in allowed_colors:
-                context.error(element, '"{}" is not one of the allowed colors: "{}".'
-                              .format(color_name, allowed_colors))
+                context.error(element, '"{}" is not one of the allowed colors: `{}`.'
+                              .format(color_name, options_string))
