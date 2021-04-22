@@ -51,7 +51,7 @@ class NamedColors(Rule):
                     element.get('catalog') is not None
             ):
                 if not allow_system_colors:
-                    context.error(element, 
+                    context.error(element,
                                   "Use of named system {}s is not allowed. Use a named color instead."
                                   .format(color))
                 continue
@@ -59,7 +59,7 @@ class NamedColors(Rule):
             # Require a name
             color_name = element.get('name')
             if color_name is None:
-                context.error(element, 
+                context.error(element,
                               "Use of custom {}s is not allowed. Use a named color instead."
                               .format(color))
                 continue
