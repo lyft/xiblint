@@ -42,6 +42,8 @@ class NamedColors(Rule):
             ):
                 continue
 
+            color = element.get('key') if element.get('key') else 'color'
+
             # If `systemColor` or `catalog` is present, it's a named system color
             if (
                     element.get('systemColor') is not None or
@@ -49,17 +51,21 @@ class NamedColors(Rule):
                     element.get('catalog') is not None
             ):
                 if not allow_system_colors:
-                    context.error(element, "Use of named system colors is not allowed. Use a named color instead.")
+                    context.error(element,
+                                  "Use of named system {}s is not allowed. Use a named color instead."
+                                  .format(color))
                 continue
 
             # Require a name
             color_name = element.get('name')
             if color_name is None:
-                context.error(element, "Use of custom colors is not allowed. Use a named color instead.")
+                context.error(element,
+                              "Use of custom {}s is not allowed. Use a named color instead."
+                              .format(color))
                 continue
 
             # If allowed_colors is set, verify that color_name is included
             options_string = '`, `'.join(map(str, allowed_colors))
             if allowed_colors and color_name not in allowed_colors:
-                context.error(element, '"{}" is not one of the allowed colors: `{}`.'
-                              .format(color_name, options_string))
+                context.error(element, '"{}" is not one of the allowed {}s: `{}`.'
+                              .format(color_name, color, options_string))
