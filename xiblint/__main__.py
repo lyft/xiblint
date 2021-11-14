@@ -37,6 +37,8 @@ def main():
     parser.add_argument("--reporter", choices=("raw", "json"),
                         default="raw",
                         help="custom reporter to use")
+    parser.add_argument("--no-exit-code", action='store_true',
+                        help="always exit with 0")
     parser.add_argument("paths", nargs=argparse.REMAINDER,
                         help="lint only at the specified paths")
     args = parser.parse_args()
@@ -73,7 +75,7 @@ def main():
 
     print_errors(errors, args.reporter)
 
-    sys.exit(1 if errors else 0)
+    sys.exit(1 if (errors and not args.no_exit_code) else 0)
 
 
 def process_file(file_path, config):
