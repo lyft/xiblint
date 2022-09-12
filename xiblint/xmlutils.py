@@ -27,9 +27,9 @@ def parse_xml(file_path):
 
     # ElementTree does not implement parent attributes: add parent property to every element
     parent_map = {child: parent
-                  for parent in tree.getiterator()
+                  for parent in tree.iter()
                   for child in parent}
-    for p in tree.getiterator():
+    for p in tree.iter():
         p.parent = parent_map.get(p)
 
     return tree
