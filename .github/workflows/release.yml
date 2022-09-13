@@ -4,7 +4,7 @@ name: Upload xiblint to pypi
 #   release:
 #     types: [published]
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   deploy:
