@@ -106,4 +106,4 @@ class ColorAssets(Rule):
 
     def _compare_colors(self, lhs, rhs):
         # Compare with only 4 decimal places
-        return all(format(l, ".4f") == format(r, ".4f") for l, r in zip(lhs, rhs))
+        return all(format(left, ".4f") == format(right, ".4f") for left, right in zip(lhs, rhs))
