@@ -1,0 +1,24 @@
+name: Upload xiblint to pypi
+
+# on:
+#   release:
+#     types: [published]
+
+on: [push, pull_request]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+      - name: Install pypa/build
+        run: python3 -m pip install build --user
+      - name: Build a binary wheel and a source tarball
+        run: python3 -m build --sdist --wheel --outdir dist/ .
+      - name: Push to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
